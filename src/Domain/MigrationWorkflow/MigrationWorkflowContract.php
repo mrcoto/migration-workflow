@@ -2,6 +2,9 @@
 
 namespace MrCoto\MigrationWorkflow\Domain\MigrationWorkflow;
 
+use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowCollection;
+use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowStep;
+
 interface MigrationWorkflowContract
 {
 
@@ -14,23 +17,23 @@ interface MigrationWorkflowContract
      *
      * Example:
      *
-     * [
-     *      [
-     *          'type' => 'migration',
-     *          'files' => [
-     *              'Modules/Pos/Database/Migrations/2019_07_29_144309_edit_pos_voucher_counter_table',
-     *          ]
-     *      ],
-     *      [
-     *          'type' => 'seed',
-     *          'files' => [
-     *              "Modules\General\Database\Seeders\\Production\AuditHistoricPriceTableSeeder",
-     *          ]
-     *      ]
-     * ]
+     * return MigrationWorkflow::workflow(
+     *      MigrationWorkflow::step('migration', [
+     *          'Modules/Warehouse/Database/Migrations/2019_10_18_082139_drop_wh_product_wholesale_ref_table',
+     *          'Modules/Warehouse/Database/Migrations/2019_10_18_082121_drop_wh_subfamily_wholesale_ref_table',
+     *          'Modules/Sale/Database/Migrations/2019_10_18_085640_drop_sl_wholesale_ref_table',
+     *      ]),
+     *      MigrationWorkflow::step('seed', [
+     *          'Modules\General\Database\Seeders\Production\RolePermissionTableSeeder',
+     *          'Modules\General\Database\Seeders\Production\GModuleTableSeeder',
+     *          'Modules\General\Database\Seeders\Production\GMenuTableSeeder',
+     *          'Modules\General\Database\Seeders\Production\GSubmenuTableSeeder',
+     *          'Modules\General\Database\Seeders\Production\ModuleAndGroupPermissionTableSeeder',
+     *      ]),
+     *  )
      *
-     * @return array
+     * @return MigrationWorkflowCollection
      */
-    function getWorkFlow() : array;
+    function getWorkFlow() : MigrationWorkflowCollection;
 
 }
