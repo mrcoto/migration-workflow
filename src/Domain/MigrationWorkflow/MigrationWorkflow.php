@@ -14,7 +14,7 @@ class MigrationWorkflow
     /**
      * Generate new MigrationWorkflowCollection from steps
      *
-     * @param MigrationWorkflowStep[] $steps $steps
+     * @param array $steps $steps
      * @return MigrationWorkflowCollection
      */
     public static function workflow(array $steps) : MigrationWorkflowCollection
