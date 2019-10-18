@@ -37,24 +37,15 @@ class Database
      */
     private function getConfig() : array
     {
+        $default = config('database.default');
         return [
-            'driver' => 'pgsql',
-            'host' => '127.0.0.1',
-            'port'=> '5432',
-            'database' => 'agroplastic',
-            'username' => 'postgres',
-            'password' => 'secret'
+            'driver' => $default,
+            'host' => config("database.connections.$default.host"),
+            'port'=> config("database.connections.$default.port"),
+            'database' => config("database.connections.$default.database"),
+            'username' => config("database.connections.$default.username"),
+            'password' => config("database.connections.$default.password"),
         ];
-        // return [
-        //     'driver' => $default,
-        //     'host' => Config::get("database.connections.$default.host", Env::get('DB_HOST')),
-        //     'database' => Config::get("database.connections.$default.host", Env::get('DB_DATABASE')),
-        //     'username' => Config::get("database.connections.$default.username", Env::get('DB_USERNAME')),
-        //     'password' => Config::get("database.connections.$default.password", Env::get('DB_PASSWORD')),
-        //     'charset' => Config::get("database.connections.$default.charset", 'utf8'),
-        //     'collation' => Config::get("database.connections.$default.collation", 'utf8mb4_unicode_ci'),
-        //     'prefix' => Config::get("database.connections.$default.prefix", ''),
-        // ];
     }
 
 }

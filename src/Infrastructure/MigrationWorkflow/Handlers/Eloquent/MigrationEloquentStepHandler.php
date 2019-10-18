@@ -19,7 +19,7 @@ class MigrationEloquentStepHandler implements MigrationWorkflowStepHandler
     {
         $db = new Database;
         $connection = $db->connection();
-        // var_dump($connection->table('g_user')->where('flag_delete', false)->get()->toArray());
+        var_dump($connection->table('random_table')->get()->toArray());
     }
 
 }

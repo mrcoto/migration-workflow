@@ -9,7 +9,7 @@ use MrCoto\MigrationWorkflow\Test\LaravelTest;
 class MigrationEloquentStepHandlerTest extends LaravelTest
 {
 
-    public function test_should_print_config()
+    public function test_should_get_data()
     {
         $migrationStepHandler = new MigrationEloquentStepHandler;
         $migrationStepHandler->handle(1, new MigrationWorkflowStep('migration', [
