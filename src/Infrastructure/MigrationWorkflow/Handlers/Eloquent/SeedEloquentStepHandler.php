@@ -1,6 +1,6 @@
 <?php 
 
-namespace MrCoto\MigrationWorkflow\Infrastructure\MigrationWorkflow\Handlers;
+namespace MrCoto\MigrationWorkflow\Infrastructure\MigrationWorkflow\Handlers\Eloquent;
 
 use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\Handlers\MigrationWorkflowStepHandler;
 

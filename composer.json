@@ -18,12 +18,21 @@
         "bramus/monolog-colored-line-formatter": "~2.0|~3.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.0"
+        "phpunit/phpunit": "^8.0",
+        "orchestra/testbench": "^3.0|^4.0"
     },
     "autoload": {
         "psr-4": {
             "MrCoto\\MigrationWorkflow\\": "src"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MrCoto\\MigrationWorkflow\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
     },
     "extra": {
         "laravel": {

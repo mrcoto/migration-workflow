@@ -1,6 +1,6 @@
 <?php 
 
-namespace MrCoto\MigrationWorkflow\Infrastructure\MigrationWorkflow\Handlers;
+namespace MrCoto\MigrationWorkflow\Infrastructure\MigrationWorkflow\Handlers\Eloquent;
 
 use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\Handlers\MigrationWorkflowStepHandler;
 use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowStep;
@@ -17,6 +17,9 @@ class MigrationEloquentStepHandler implements MigrationWorkflowStepHandler
      */
     public function handle(int $stepNumber, MigrationWorkflowStep $step)
     {
+        $db = new Database;
+        $connection = $db->connection();
+        // var_dump($connection->table('g_user')->where('flag_delete', false)->get()->toArray());
     }
 
 }

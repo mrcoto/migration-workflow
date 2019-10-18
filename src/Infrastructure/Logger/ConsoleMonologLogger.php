@@ -2,7 +2,6 @@
 
 namespace MrCoto\MigrationWorkflow\Infrastructure\Logger;
 
-use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger as MonologLogger;
 use MrCoto\MigrationWorkflow\Domain\Logger\Logger;
