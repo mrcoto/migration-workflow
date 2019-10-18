@@ -2,35 +2,36 @@
 
 namespace MrCoto\MigrationWorkflow\Domain\MigrationWorkflow;
 
-interface MigrationWorkflow
+use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowCollection;
+use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowStep;
+
+/**
+ * Facade to generate Workflow steps and Workflow step
+ */
+class MigrationWorkflow
 {
 
     /**
-     * Return migration workflow,
-     * each element in the array is a workflow's step.
-     * The step can be:
-     * - Run specific migration files
-     * - Run specific Seeds
+     * Generate new MigrationWorkflowCollection from steps
      *
-     * Example:
-     *
-     * [
-     *      [
-     *          'type' => 'migration',
-     *          'files' => [
-     *              'Modules/Pos/Database/Migrations/2019_07_29_144309_edit_pos_voucher_counter_table',
-     *          ]
-     *      ],
-     *      [
-     *          'type' => 'seed',
-     *          'files' => [
-     *              "Modules\General\Database\Seeders\\Production\AuditHistoricPriceTableSeeder",
-     *          ]
-     *      ]
-     * ]
-     *
-     * @return array
+     * @param MigrationWorkflowStep[] $steps $steps
+     * @return MigrationWorkflowCollection
      */
-    function getWorkFlow() : array;
+    public static function workflow(array $steps) : MigrationWorkflowCollection
+    {
+        return new MigrationWorkflowCollection($steps);
+    }
+
+    /**
+     * Generate new MigrationWorkflowStep
+     *
+     * @param string $type
+     * @param array $files
+     * @return MigrationWorkflowStep
+     */
+    public static function step(string $type, array $files) : MigrationWorkflowStep
+    {
+        return new MigrationWorkflowStep($type, $files);
+    }
 
 }
