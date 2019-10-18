@@ -1,0 +1,34 @@
+{
+    "name": "mrcoto/migration-workflow",
+    "description": "Run migration and seed in custom order",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "José Espinoza Salas",
+            "email": "j.espinoza@innlab.cl"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.2",
+        "illuminate/support": "5.6.*|5.7.*|5.8.*|^6.0",
+        "illuminate/database": "5.6.*|5.7.*|5.8.*|^6.0",
+        "monolog/monolog": "^1.23|^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "MrCoto\\MigrationWorkflow\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MrCoto\\MigrationWorkflow\\Application\\LaravelMigrationWorkflowServiceProvider"
+            ]
+        }
+    }
+}
