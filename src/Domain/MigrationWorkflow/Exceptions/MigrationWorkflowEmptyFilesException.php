@@ -2,9 +2,9 @@
 
 namespace MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\Exceptions;
 
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\MigrationWorkflowStep;
+use Exception;
 
-class MigrationWorkflowEmptyFilesException extends \IllegalArgumentException
+class MigrationWorkflowEmptyFilesException extends Exception
 {
 
     public function __construct()

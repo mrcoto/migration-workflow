@@ -2,9 +2,9 @@
 
 namespace MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject;
 
-use MigrationWorkflowToken;
 use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\Exceptions\MigrationWorkflowEmptyFilesException;
 use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\Exceptions\MigrationWorkflowTypeExpectedException;
+use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\MigrationWorkflowToken;
 
 class MigrationWorkflowStep
 {

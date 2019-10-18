@@ -2,10 +2,10 @@
 
 namespace MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\Exceptions;
 
-use MigrationWorkflowToken;
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\MigrationWorkflowStep;
+use Exception;
+use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\MigrationWorkflowToken;
 
-class MigrationWorkflowTypeExpectedException extends \IllegalArgumentException
+class MigrationWorkflowTypeExpectedException extends Exception
 {
 
     public function __construct(string $type)

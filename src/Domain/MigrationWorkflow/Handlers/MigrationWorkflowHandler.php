@@ -2,9 +2,9 @@
 
 namespace MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\Handlers;
 
-use MigrationWorkflowToken;
 use MrCoto\MigrationWorkflow\Domain\Logger\Logger;
 use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\MigrationWorkflowContract;
+use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\MigrationWorkflowToken;
 use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowStep;
 
 class MigrationWorkflowHandler
