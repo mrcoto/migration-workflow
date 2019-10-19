@@ -2,6 +2,7 @@
 
 namespace MrCoto\MigrationWorkflow\Domain\Handlers;
 
+use Exception;
 use MrCoto\MigrationWorkflow\Domain\Logger\Logger;
 use MrCoto\MigrationWorkflow\Domain\MigrationWorkflowContract;
 use MrCoto\MigrationWorkflow\Domain\MigrationWorkflowToken;
@@ -13,16 +14,19 @@ class MigrationWorkflowHandler
     private $logger;
     private $migrationHandler;
     private $seedHandler;
+    private $hookHandler;
 
     public function __construct(
         Logger $logger,
         MigrationWorkflowStepHandler $migrationHandler,
-        MigrationWorkflowStepHandler $seedHandler
+        MigrationWorkflowStepHandler $seedHandler,
+        MigrationWorkflowHookHandler $hookHandler
     )
     {
         $this->logger = $logger;       
         $this->migrationHandler = $migrationHandler;
         $this->seedHandler = $seedHandler; 
+        $this->hookHandler = $hookHandler;
     }
 
     /**
@@ -33,23 +37,44 @@ class MigrationWorkflowHandler
      */
     public function handle(MigrationWorkflowContract $migrationWorkflow)
     {
-        $workflow = $migrationWorkflow->getWorkFlow();
-        $steps = $workflow->steps();
-        $this->logger->info("Workflow steps: ".count($steps));
-        /** @var MigrationWorkflowStep $step */
-        foreach($steps as $index => $step)
-        {
-            $stepNumber = $index + 1;
-            $type = $step->type();
-            $filesLen = count($step->files());
-            $this->logger->info("Executing step: $stepNumber --> type: $type | files found: $filesLen");
-            if ($step->type() == MigrationWorkflowToken::MIGRATION) {
-                $this->handleMigration($stepNumber, $step);
-            } else {
-                $this->handleSeed($stepNumber, $step);
+        // try-catch useful to define transaction context's or another error processing
+        try {
+            $workflow = $migrationWorkflow->getWorkFlow();
+            $this->hookHandler->beforeAll($workflow);
+            $steps = $workflow->steps();
+            $this->logger->info("Workflow steps: ".count($steps));
+            foreach($steps as $index => $step)
+            {
+                $stepNumber = $index + 1;
+                $this->handleStep($stepNumber, $step);
             }
-            $this->logger->debug("Executed step: $stepNumber --> type: $type | files found: $filesLen");
+            $this->hookHandler->afterAll($workflow);
+        } catch(Exception $e) {
+            $this->hookHandler->onError($workflow, $step, $stepNumber);
+            $this->logger->error("Unexpected error on step #$stepNumber: ". $e->getMessage());
+            throw $e;
         }
+        
+    }
+
+    /**
+     * Handle single step
+     *
+     * @param integer $stepNumber
+     * @param MigrationWorkflowStep $step
+     * @return void
+     */
+    private function handleStep(int $stepNumber, MigrationWorkflowStep $step)
+    {
+        $type = $step->type();
+        $filesLen = count($step->files());
+        $this->logger->info("Executing step: $stepNumber --> type: $type | files found: $filesLen");
+        if ($step->type() == MigrationWorkflowToken::MIGRATION) {
+            $this->handleMigration($stepNumber, $step);
+        } else {
+            $this->handleSeed($stepNumber, $step);
+        }
+        $this->logger->debug("Executed step: $stepNumber --> type: $type | files found: $filesLen");
     }
 
     /**

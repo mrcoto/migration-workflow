@@ -3,8 +3,6 @@
 namespace MrCoto\MigrationWorkflow\Test\Domain;
 
 use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow;
-use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowCollection;
-use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep;
 use PHPUnit\Framework\TestCase;
 
 class MigrationWorkflowTest extends TestCase

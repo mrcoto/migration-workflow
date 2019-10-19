@@ -3,7 +3,6 @@
 namespace MrCoto\MigrationWorkflow\Domain;
 
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowCollection;
-use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep;
 
 interface MigrationWorkflowContract
 {
