@@ -13,7 +13,7 @@ use MrCoto\MigrationWorkflow\Test\LaravelTest;
 class MigrationEloquentStepHandlerTest extends LaravelTest
 {
 
-    public function test_should_if_migration_file_doesnt_exists()
+    public function test_should_throw_exception_if_migration_file_doesnt_exists()
     {
         $this->expectException(MigrationFileNotFoundException::class);
         $migrationStepHandler = new MigrationEloquentStepHandler;
@@ -22,7 +22,7 @@ class MigrationEloquentStepHandlerTest extends LaravelTest
         ]));
     }
 
-    public function test_should_if_class_file_is_not_a_migration()
+    public function test_should_throw_exception_if_class_file_is_not_a_migration()
     {
         $this->expectException(ClassFileIsNotMigrationException::class);
         Artisan::call('vendor:publish', ['--provider' => 'MrCoto\MigrationWorkflow\Test\Stub\FakeServiceProvider']);

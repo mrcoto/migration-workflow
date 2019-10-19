@@ -29,7 +29,10 @@
     "autoload-dev": {
         "psr-4": {
             "MrCoto\\MigrationWorkflow\\Test\\": "tests"
-        }
+        },
+        "classmap": [
+            "tests/Stub/seeders"
+        ]
     },
     "scripts": {
         "test": "vendor/bin/phpunit"
