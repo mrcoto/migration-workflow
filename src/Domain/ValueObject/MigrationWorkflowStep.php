@@ -1,10 +1,10 @@
 <?php 
 
-namespace MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject;
+namespace MrCoto\MigrationWorkflow\Domain\ValueObject;
 
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\Exceptions\MigrationWorkflowEmptyFilesException;
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\Exceptions\MigrationWorkflowTypeExpectedException;
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\MigrationWorkflowToken;
+use MrCoto\MigrationWorkflow\Domain\Exceptions\MigrationWorkflowEmptyFilesException;
+use MrCoto\MigrationWorkflow\Domain\Exceptions\MigrationWorkflowTypeExpectedException;
+use MrCoto\MigrationWorkflow\Domain\MigrationWorkflowToken;
 
 class MigrationWorkflowStep
 {

@@ -1,6 +1,6 @@
 <?php 
 
-namespace MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject;
+namespace MrCoto\MigrationWorkflow\Domain\ValueObject;
 
 class MigrationWorkflowCollection
 {

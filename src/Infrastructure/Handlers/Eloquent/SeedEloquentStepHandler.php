@@ -1,8 +1,8 @@
 <?php 
 
-namespace MrCoto\MigrationWorkflow\Infrastructure\MigrationWorkflow\Handlers\Eloquent;
+namespace MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent;
 
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\Handlers\MigrationWorkflowStepHandler;
+use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationWorkflowStepHandler;
 
 class SeedEloquentStepHandler implements MigrationWorkflowStepHandler
 {

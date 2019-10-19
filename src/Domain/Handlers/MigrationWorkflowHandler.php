@@ -1,11 +1,11 @@
 <?php
 
-namespace MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\Handlers;
+namespace MrCoto\MigrationWorkflow\Domain\Handlers;
 
 use MrCoto\MigrationWorkflow\Domain\Logger\Logger;
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\MigrationWorkflowContract;
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\MigrationWorkflowToken;
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowStep;
+use MrCoto\MigrationWorkflow\Domain\MigrationWorkflowContract;
+use MrCoto\MigrationWorkflow\Domain\MigrationWorkflowToken;
+use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep;
 
 class MigrationWorkflowHandler
 {

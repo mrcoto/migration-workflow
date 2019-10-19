@@ -2,10 +2,10 @@
 
 namespace MrCoto\MigrationWorkflow\Test\Domain\ValueObject;
 
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\Exceptions\MigrationWorkflowEmptyFilesException;
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\Exceptions\MigrationWorkflowTypeExpectedException;
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\MigrationWorkflowToken;
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowStep;
+use MrCoto\MigrationWorkflow\Domain\Exceptions\MigrationWorkflowEmptyFilesException;
+use MrCoto\MigrationWorkflow\Domain\Exceptions\MigrationWorkflowTypeExpectedException;
+use MrCoto\MigrationWorkflow\Domain\MigrationWorkflowToken;
+use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep;
 use PHPUnit\Framework\TestCase;
 
 class MigrationWorkflowStepTest extends TestCase
@@ -15,7 +15,7 @@ class MigrationWorkflowStepTest extends TestCase
     {
         $this->expectException(MigrationWorkflowTypeExpectedException::class);
         new MigrationWorkflowStep('random_type', [
-            'MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowStep'
+            'MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep'
         ]);
     }
 
@@ -30,11 +30,11 @@ class MigrationWorkflowStepTest extends TestCase
     public function test_should_create_migration_workflow_step()
     {
         $step = new MigrationWorkflowStep('migration', [
-            'MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowStep'
+            'MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep'
         ]);
         $this->assertEquals('migration', $step->type());
         $this->assertEquals(1, count($step->files()));
-        $this->assertEquals('MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowStep', $step->files()[0]);
+        $this->assertEquals('MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep', $step->files()[0]);
     }
 
 }

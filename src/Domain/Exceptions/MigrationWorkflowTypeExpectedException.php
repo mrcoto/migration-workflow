@@ -1,9 +1,9 @@
 <?php 
 
-namespace MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\Exceptions;
+namespace MrCoto\MigrationWorkflow\Domain\Exceptions;
 
 use Exception;
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\MigrationWorkflowToken;
+use MrCoto\MigrationWorkflow\Domain\MigrationWorkflowToken;
 
 class MigrationWorkflowTypeExpectedException extends Exception
 {

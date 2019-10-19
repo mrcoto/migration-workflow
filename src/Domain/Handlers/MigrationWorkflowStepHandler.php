@@ -1,8 +1,8 @@
 <?php 
 
-namespace MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\Handlers;
+namespace MrCoto\MigrationWorkflow\Domain\Handlers;
 
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowStep;
+use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep;
 
 interface MigrationWorkflowStepHandler
 {

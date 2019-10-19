@@ -1,6 +1,6 @@
 <?php 
 
-namespace MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\Exceptions;
+namespace MrCoto\MigrationWorkflow\Domain\Exceptions;
 
 use Exception;
 

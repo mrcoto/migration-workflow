@@ -4,10 +4,10 @@ namespace MrCoto\MigrationWorkflow\Test\Infrastructure;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowStep;
+use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep;
 use MrCoto\MigrationWorkflow\Infrastructure\Exceptions\ClassFileIsNotMigrationException;
 use MrCoto\MigrationWorkflow\Infrastructure\Exceptions\MigrationFileNotFoundException;
-use MrCoto\MigrationWorkflow\Infrastructure\MigrationWorkflow\Handlers\Eloquent\MigrationEloquentStepHandler;
+use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\MigrationEloquentStepHandler;
 use MrCoto\MigrationWorkflow\Test\LaravelTest;
 
 class MigrationEloquentStepHandlerTest extends LaravelTest

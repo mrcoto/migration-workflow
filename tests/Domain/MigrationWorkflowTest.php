@@ -2,9 +2,9 @@
 
 namespace MrCoto\MigrationWorkflow\Test\Domain;
 
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\MigrationWorkflow;
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowCollection;
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowStep;
+use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow;
+use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowCollection;
+use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep;
 use PHPUnit\Framework\TestCase;
 
 class MigrationWorkflowTest extends TestCase
@@ -15,10 +15,10 @@ class MigrationWorkflowTest extends TestCase
         $collection = MigrationWorkflow::workflow(
             [
                 MigrationWorkflow::step('migration', [
-                    'MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowStep'
+                    'MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep'
                 ]),
                 MigrationWorkflow::step('seed', [
-                    'MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowStep'
+                    'MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep'
                 ]),
             ]
         );
@@ -26,10 +26,10 @@ class MigrationWorkflowTest extends TestCase
         $this->assertEquals(2, count($steps));
         $this->assertEquals('migration', $steps[0]->type());
         $this->assertEquals(1, count($steps[0]->files()));
-        $this->assertEquals('MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowStep', $steps[0]->files()[0]);
+        $this->assertEquals('MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep', $steps[0]->files()[0]);
         $this->assertEquals('seed', $steps[1]->type());
         $this->assertEquals(1, count($steps[1]->files()));
-        $this->assertEquals('MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowStep', $steps[1]->files()[0]);
+        $this->assertEquals('MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep', $steps[1]->files()[0]);
     }
 
 }

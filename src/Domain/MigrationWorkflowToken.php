@@ -1,6 +1,6 @@
 <?php 
 
-namespace MrCoto\MigrationWorkflow\Domain\MigrationWorkflow;
+namespace MrCoto\MigrationWorkflow\Domain;
 
 class MigrationWorkflowToken
 {

@@ -1,9 +1,9 @@
 <?php 
 
-namespace MrCoto\MigrationWorkflow\Domain\MigrationWorkflow;
+namespace MrCoto\MigrationWorkflow\Domain;
 
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowCollection;
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow\ValueObject\MigrationWorkflowStep;
+use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowCollection;
+use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep;
 
 /**
  * Facade to generate Workflow steps and Workflow step
