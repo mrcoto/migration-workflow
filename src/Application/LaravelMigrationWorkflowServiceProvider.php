@@ -3,6 +3,7 @@
 namespace MrCoto\MigrationWorkflow\Application;
 
 use Illuminate\Support\ServiceProvider;
+use MrCoto\MigrationWorkflow\Application\Commands\MigrateWorkflowCommand;
 
 class LaravelMigrationWorkflowServiceProvider extends ServiceProvider
 {
@@ -14,7 +15,11 @@ class LaravelMigrationWorkflowServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // TODO: Fill me with code if needed
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                MigrateWorkflowCommand::class
+            ]);
+        }
     }
 
     /**
