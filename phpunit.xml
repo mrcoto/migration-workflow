@@ -25,6 +25,6 @@
         <server name="DB_PORT" value="5432"/>
         <server name="DB_DATABASE" value="migration_workflow"/>
         <server name="DB_USERNAME" value="postgres"/>
-        <server name="DB_PASSWORD" value="postgres"/>
+        <server name="DB_PASSWORD" value="secret"/>
     </php>
 </phpunit>

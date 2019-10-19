@@ -9,7 +9,10 @@ abstract class LaravelTest extends TestCase
 
     protected function getPackageProviders($app)
     {
-        return ['MrCoto\MigrationWorkflow\Application\LaravelMigrationWorkflowServiceProvider'];
+        return [
+            'MrCoto\MigrationWorkflow\Application\LaravelMigrationWorkflowServiceProvider',
+            'MrCoto\MigrationWorkflow\Test\Stub\FakeServiceProvider',
+        ];
     }
 
     protected function getEnvironmentSetUp($app)
