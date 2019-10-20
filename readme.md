@@ -98,6 +98,8 @@ class MigrateWorkflowClass implements MigrationWorkflowContract
 }
 ```
 
+**IMPORTANT:** It's recommended to define all your migration workflow **seeds** inside ```app``` folder, becuase won't be loaded due to composer autoload configuration. 
+
 ----------------------------
 
 All rights reserved Innlab@2019 (Package developed by José Espinoza)
