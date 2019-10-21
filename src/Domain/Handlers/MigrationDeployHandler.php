@@ -44,8 +44,10 @@ class MigrationDeployHandler
      */
     public function deploy()
     {
-        $this->tableHandler->createMigrationWorkflowTableIfNotExists($this->deployData->tableName());
-        $this->tableHandler->createMigrationWorkflowDetailTableIfNotExists($this->deployData->detailTableName());
+        $tableName = $this->deployData->tableName();
+        $detailTableName = $this->deployData->detailTableName();
+        $this->tableHandler->createMigrationWorkflowTableIfNotExists($tableName);
+        $this->tableHandler->createMigrationWorkflowDetailTableIfNotExists($tableName, $detailTableName);
         $workflows = $this->getWorkflows(
             $this->deployData->workflowPaths(),
             $this->deployData->versions()
@@ -53,13 +55,13 @@ class MigrationDeployHandler
         /** @var MigrationWorkflowData $workflow */
         foreach($workflows as $workflowData) {
             $className = get_class($workflowData->workflow());
-            if (!$this->tableHandler->isWorkflowPresentInDatabase($workflowData)) {
+            if ($this->tableHandler->isWorkflowPresentInDatabase($tableName, $workflowData)) {
                 $this->logger->warning("Skipping workflow $className. Already In Database");
                 continue;
             }
             $this->logger->info("Executing $className workflow");
             $this->migrationWorkflowHandler->handle($workflowData->workflow());
-            $this->tableHandler->saveMigrationWorkflow($workflowData);
+            $this->tableHandler->saveMigrationWorkflow($tableName, $detailTableName, $workflowData);
             $this->logger->debug("Workflow $className executed");
         }
     }
