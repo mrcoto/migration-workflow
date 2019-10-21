@@ -19,6 +19,9 @@ class LaravelMigrationWorkflowServiceProvider extends ServiceProvider
             $this->commands([
                 MigrateWorkflowCommand::class
             ]);
+            $this->publishes([
+                __DIR__.'/Config/migration_workflow.php' => config_path('migration_workflow.php'),
+            ], 'migration-workflow-config');
         }
     }
 
@@ -29,7 +32,10 @@ class LaravelMigrationWorkflowServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // TODO: Fill me with code if needed
+        $this->mergeConfigFrom(
+            __DIR__.'/Config/migration_workflow.php',
+            'migration_workflow'
+        );
     }
 
 }
