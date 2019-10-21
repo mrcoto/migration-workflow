@@ -33,7 +33,7 @@ return [
     |
     */
     'workflows' => [
-        'App\Workflows'
+        'App\MigrationWorkflows'
     ],
 
 ];
