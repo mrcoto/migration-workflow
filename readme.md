@@ -10,6 +10,7 @@ This package attempt to define a way to specify the sequential order of those fi
 
 |Version|Descripción|
 |-|-|
+|V1.0.1|You can run seeds from database/seeders (In V1.0.0 you can only un seeds inside ```app/```)|
 |V1.0.0|Command ```migrate:workflow``` is provided to run a specific migration workflow|
 
 ## Migration Workflow
@@ -97,8 +98,6 @@ class MigrateWorkflowClass implements MigrationWorkflowContract
 
 }
 ```
-
-**IMPORTANT:** It's recommended to define all your migration workflow **seeds** inside ```app``` folder, becuase won't be loaded due to composer autoload configuration. 
 
 ----------------------------
 

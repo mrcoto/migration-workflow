@@ -6,8 +6,9 @@ use Illuminate\Database\Seeder;
 use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationWorkflowStepHandler;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep;
 use MrCoto\MigrationWorkflow\Infrastructure\Exceptions\ClassFileIsNotSeederException;
+use ReflectionClass;
 
-class SeedEloquentStepHandler implements MigrationWorkflowStepHandler
+class SeedEloquentStepHandler extends Seeder implements MigrationWorkflowStepHandler
 {
     
     /**
@@ -21,11 +22,17 @@ class SeedEloquentStepHandler implements MigrationWorkflowStepHandler
     {
         foreach($step->files() as $seedClass)
         {
-            $seedObj = new $seedClass;
-            if (!$seedObj instanceof Seeder) {
-                throw new ClassFileIsNotSeederException($seedClass);
+            $reflection = new ReflectionClass($seedClass);
+            if ($reflection->isInstantiable()) {
+                $seedObj = new $seedClass;
+                if (!$seedObj instanceof Seeder) {
+                    throw new ClassFileIsNotSeederException($seedClass);
+                }
+                $seedObj->run();
+            } else {
+                // Call default seeds from database/seeders
+                $this->callSilent($seedClass); 
             }
-            $seedObj->run();
         }
     }
 

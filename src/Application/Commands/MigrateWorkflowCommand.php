@@ -56,13 +56,6 @@ class MigrateWorkflowCommand extends Command
     {
         $migrationWorkflow = $this->getMigrationWorkFlowClass();
         $this->migrationWorkflowHandler->handle($migrationWorkflow);
-        // $migrationWorkflowObject = $this->getMigrationWorkFlowClass();
-        // $workflow = $migrationWorkflowObject->getWorkFlow();
-        // $this->info("Workflow steps: ".count($workflow));
-        // DB::transaction(function() use ($workflow) {
-        //     $this->handleWorkflow($workflow);
-        //     DB::table('migrations')->insert($this->migrateBatch);
-        // });
     }
 
     /**

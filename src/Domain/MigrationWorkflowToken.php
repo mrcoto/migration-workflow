@@ -9,7 +9,7 @@ class MigrationWorkflowToken
     public const SEED = 'seed';
 
     /**
-     * Available token types to us
+     * Available token types to use
      */
     public const TYPES = [
         self::MIGRATION,
