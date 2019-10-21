@@ -21,7 +21,7 @@ class MigrationDeployHandlerDomainTest extends TestCase
         $tableHandlerMock->method('isWorkflowPresentInDatabase')->will($this->onConsecutiveCalls(
             'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data1\CreateDummyWorkflow_dev_2019_10_21_101600',
             'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data2\SeedDummyWorkflow_dev_2019_10_21_101700'
-        ))->willReturn(true);
+        ))->willReturn(false);
 
         $migrationHandlerMock = $this->getMockBuilder(MigrationEloquentStepHandler::class)->getMock();
         $seedHandlerMock = $this->getMockBuilder(MigrationEloquentStepHandler::class)->getMock();
@@ -60,7 +60,7 @@ class MigrationDeployHandlerDomainTest extends TestCase
     {
         $loggerMock = $this->getMockBuilder(Logger::class)->getMock();
         $tableHandlerMock = $this->getMockBuilder(MigrationDeployTableHandler::class)->getMock();
-        $tableHandlerMock->method('isWorkflowPresentInDatabase')->willReturn(false);
+        $tableHandlerMock->method('isWorkflowPresentInDatabase')->willReturn(true);
 
         $migrationHandlerMock = $this->getMockBuilder(MigrationEloquentStepHandler::class)->getMock();
         $seedHandlerMock = $this->getMockBuilder(MigrationEloquentStepHandler::class)->getMock();
