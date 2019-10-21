@@ -17,6 +17,10 @@ abstract class LaravelTest extends TestCase
 
     protected function getEnvironmentSetUp($app)
     {
+        $app['config']->set('migration_workflow.workflows', [
+            'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data2',
+            'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data1',
+        ]);
     }
 
 }

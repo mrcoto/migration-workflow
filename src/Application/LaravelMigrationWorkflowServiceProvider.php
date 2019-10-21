@@ -3,6 +3,7 @@
 namespace MrCoto\MigrationWorkflow\Application;
 
 use Illuminate\Support\ServiceProvider;
+use MrCoto\MigrationWorkflow\Application\Commands\MigrateDeployCommand;
 use MrCoto\MigrationWorkflow\Application\Commands\MigrateWorkflowCommand;
 
 class LaravelMigrationWorkflowServiceProvider extends ServiceProvider
@@ -17,7 +18,8 @@ class LaravelMigrationWorkflowServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                MigrateWorkflowCommand::class
+                MigrateWorkflowCommand::class,
+                MigrateDeployCommand::class
             ]);
             $this->publishes([
                 __DIR__.'/Config/migration_workflow.php' => config_path('migration_workflow.php'),
