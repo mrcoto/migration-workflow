@@ -3,7 +3,9 @@
 namespace MrCoto\MigrationWorkflow\Application\Commands;
 
 use Illuminate\Console\Command;
+use MrCoto\MigrationWorkflow\Domain\Logger\Logger;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\Stub;
+use MrCoto\MigrationWorkflow\Infrastructure\Logger\ConsoleMonologLogger;
 
 class ModuleMakeMigrationWorkflowCommand extends Command
 {
@@ -26,6 +28,9 @@ class ModuleMakeMigrationWorkflowCommand extends Command
     /** @var string $date */
     private $date;
 
+    /** @var Logger $logger */
+    private $logger;
+
     /**
      * Create a new command instance.
      *
@@ -34,6 +39,7 @@ class ModuleMakeMigrationWorkflowCommand extends Command
     public function __construct()
     {
         parent::__construct();
+        $this->logger = new ConsoleMonologLogger;
     }
 
     /**
@@ -48,6 +54,7 @@ class ModuleMakeMigrationWorkflowCommand extends Command
         $namespace = str_replace('$MODULE', $this->argument('module'), self::DEFAULT_NAMESPACE);
         $stub = new Stub($namespace, $className, 'migration_workflow');
         $stub->generate();
+        $this->logger->info("Class $namespace\\$className generated");
     }
 
     /**
