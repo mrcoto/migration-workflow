@@ -10,6 +10,7 @@ This package attempt to define a way to specify the sequential order of those fi
 
 |Version|Descripción|
 |-|-|
+|V1.2.0|Added ```make:workflow``` and ```module:make-workflow``` command|
 |V1.1.0|You can deploy all your workflows defined in ```migration_workflow``` config file with ```migrate:deploy``` command |
 |V1.0.1|You can run seeds from database/seeders (In V1.0.0 you can only un seeds inside ```app/```)|
 |V1.0.0|Command ```migrate:workflow``` is provided to run a specific migration workflow|
@@ -24,6 +25,7 @@ A Migration Workflow is a **collection of steps**, where each **step** can be a 
 - [Config file](#Config)
 - [Migrate Workflow Command](#Migrate-Workflow-Command)
 - [Migrate Deploy Command](#Migration-Deploy-Command)
+- [Helper Commands](#Helper-Commands)
 
 ## Installation
 
@@ -150,6 +152,31 @@ All your workflows deployed are stored in ```migrate_workflow.table_name``` and 
 
 **Note:** You can't run a workflow if it's already stored in database, but if your workflow is named "MyWorkflow" you can execute it as many times as you want.
 
+## Helper Commands
+
+1. The first helper command is:
+
+```bash
+php artisan make:workflow MyWorkflow dev
+```
+
+This command generate the following file ```app/MigrationWorkflows/MyWorkflow_dev_2019_10_21_164230.php```.
+
+The timestamp in file name is the current timestamp.
+
+Version argument is optional (default is "v1")
+
+2. The second helper command is:
+
+```bash
+php artisan module:make-workflow MyWorkflow dev
+```
+
+This command generate the following file ```Modules/General/MigrationWorkflows/MyWorkflow_dev_2019_10_21_164230.php```.
+
+Version argument is optional (default is "v1")
+
+**Note:** This command is useful is you're using the [laravel modules package](https://github.com/nWidart/laravel-modules).
 
 ----------------------------
 
