@@ -1,10 +1,10 @@
 <?php 
 
-namespace MrCoto\MigrationWorkflow\Domain\Handlers;
+namespace MrCoto\MigrationWorkflow\Domain\Contracts;
 
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowData;
 
-interface DeleteMigrationWorkflowTableHandler
+interface DeleteMigrationWorkflowTableHandlerContract
 {
 
     /**

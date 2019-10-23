@@ -5,11 +5,11 @@ namespace MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationDeployTableHandler;
+use MrCoto\MigrationWorkflow\Domain\Contracts\MigrationDeployTableHandlerContract;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowData;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep;
 
-class MigrationDeployTableEloquentHandler implements MigrationDeployTableHandler
+class MigrationDeployTableEloquentHandler implements MigrationDeployTableHandlerContract
 {
 
     /**

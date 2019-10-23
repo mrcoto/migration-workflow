@@ -2,6 +2,7 @@
 
 namespace MrCoto\MigrationWorkflow\Domain\Handlers;
 
+use MrCoto\MigrationWorkflow\Domain\Contracts\MigrationDeployTableHandlerContract;
 use MrCoto\MigrationWorkflow\Domain\Logger\Logger;
 use MrCoto\MigrationWorkflow\Domain\Logger\LoggerFactory;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationDeployData;
@@ -14,7 +15,7 @@ class MigrationDeployHandler
     /** @var MigrationDeployData $deployData */
     private $deployData;
 
-    /** @var MigrationDeployTableHandler $tableHandler */
+    /** @var MigrationDeployTableHandlerContract $tableHandler */
     private $tableHandler;
 
     /** @var Logger $logger */
@@ -25,7 +26,7 @@ class MigrationDeployHandler
 
     public function __construct(
         MigrationDeployData $deployData,
-        MigrationDeployTableHandler $tableHandler,
+        MigrationDeployTableHandlerContract $tableHandler,
         MigrationWorkflowHandler $migrationWorkflowHandler
     )
     {

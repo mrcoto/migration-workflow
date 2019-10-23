@@ -1,12 +1,12 @@
 <?php 
 
-namespace MrCoto\MigrationWorkflow\Infrastructure\Handlers;
+namespace MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent;
 
 use Illuminate\Support\Facades\DB;
-use MrCoto\MigrationWorkflow\Domain\Handlers\DeleteMigrationWorkflowTableHandler;
+use MrCoto\MigrationWorkflow\Domain\Contracts\DeleteMigrationWorkflowTableHandlerContract;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowData;
 
-class DeleteMigrationWorkflowTableEloquentHandler implements DeleteMigrationWorkflowTableHandler
+class DeleteMigrationWorkflowTableEloquentHandler implements DeleteMigrationWorkflowTableHandlerContract
 {
 
     /**

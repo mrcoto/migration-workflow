@@ -7,7 +7,7 @@ use MrCoto\MigrationWorkflow\Domain\Handlers\DeleteMigrationWorkflowHandler;
 use MrCoto\MigrationWorkflow\Domain\Logger\Logger;
 use MrCoto\MigrationWorkflow\Domain\Logger\LoggerFactory;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationDeleteData;
-use MrCoto\MigrationWorkflow\Infrastructure\Handlers\DeleteMigrationWorkflowTableEloquentHandler;
+use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\DeleteMigrationWorkflowTableEloquentHandler;
 use MrCoto\MigrationWorkflow\Infrastructure\Logger\ConsoleMonologLogger;
 
 class DeleteMigrationWorkflowCommand extends Command

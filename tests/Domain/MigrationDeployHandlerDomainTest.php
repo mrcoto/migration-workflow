@@ -3,9 +3,9 @@
 namespace MrCoto\MigrationWorkflow\Test\Domain;
 
 use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationDeployHandler;
-use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationDeployTableHandler;
+use MrCoto\MigrationWorkflow\Domain\Contracts\MigrationDeployTableHandlerContract;
 use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationWorkflowHandler;
-use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationWorkflowHookHandler;
+use MrCoto\MigrationWorkflow\Domain\Contracts\MigrationWorkflowHookHandlerContract;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationDeployData;
 use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\MigrationStepEloquentHandler;
 use PHPUnit\Framework\TestCase;
@@ -15,7 +15,7 @@ class MigrationDeployHandlerDomainTest extends TestCase
 
     public function test_should_run_dev_migration_workflows()
     {
-        $tableHandlerMock = $this->getMockBuilder(MigrationDeployTableHandler::class)->getMock();
+        $tableHandlerMock = $this->getMockBuilder(MigrationDeployTableHandlerContract::class)->getMock();
         $tableHandlerMock->method('isWorkflowPresentInDatabase')->will($this->onConsecutiveCalls(
             'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data1\CreateDummyWorkflow_dev_2019_10_21_101600',
             'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data2\SeedDummyWorkflow_dev_2019_10_21_101700'
@@ -23,7 +23,7 @@ class MigrationDeployHandlerDomainTest extends TestCase
 
         $migrationHandlerMock = $this->getMockBuilder(MigrationStepEloquentHandler::class)->getMock();
         $seedHandlerMock = $this->getMockBuilder(MigrationStepEloquentHandler::class)->getMock();
-        $hookHandlerMock = $this->getMockBuilder(MigrationWorkflowHookHandler::class)->getMock();
+        $hookHandlerMock = $this->getMockBuilder(MigrationWorkflowHookHandlerContract::class)->getMock();
         $migrationWorkflowHandler = new MigrationWorkflowHandler(
             $migrationHandlerMock,
             $seedHandlerMock,
@@ -54,12 +54,12 @@ class MigrationDeployHandlerDomainTest extends TestCase
 
     public function test_should_run_prod_migration_workflows()
     {
-        $tableHandlerMock = $this->getMockBuilder(MigrationDeployTableHandler::class)->getMock();
+        $tableHandlerMock = $this->getMockBuilder(MigrationDeployTableHandlerContract::class)->getMock();
         $tableHandlerMock->method('isWorkflowPresentInDatabase')->willReturn(true);
 
         $migrationHandlerMock = $this->getMockBuilder(MigrationStepEloquentHandler::class)->getMock();
         $seedHandlerMock = $this->getMockBuilder(MigrationStepEloquentHandler::class)->getMock();
-        $hookHandlerMock = $this->getMockBuilder(MigrationWorkflowHookHandler::class)->getMock();
+        $hookHandlerMock = $this->getMockBuilder(MigrationWorkflowHookHandlerContract::class)->getMock();
         $migrationWorkflowHandler = new MigrationWorkflowHandler(
             $migrationHandlerMock,
             $seedHandlerMock,

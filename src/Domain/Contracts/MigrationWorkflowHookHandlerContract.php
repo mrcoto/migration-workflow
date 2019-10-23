@@ -1,11 +1,11 @@
 <?php 
 
-namespace MrCoto\MigrationWorkflow\Domain\Handlers;
+namespace MrCoto\MigrationWorkflow\Domain\Contracts;
 
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowCollection;
 
-interface MigrationWorkflowHookHandler
+interface MigrationWorkflowHookHandlerContract
 {
 
     /**

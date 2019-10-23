@@ -2,6 +2,7 @@
 
 namespace MrCoto\MigrationWorkflow\Domain\Handlers;
 
+use MrCoto\MigrationWorkflow\Domain\Contracts\DeleteMigrationWorkflowTableHandlerContract;
 use MrCoto\MigrationWorkflow\Domain\Logger\Logger;
 use MrCoto\MigrationWorkflow\Domain\Logger\LoggerFactory;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationDeleteData;
@@ -16,17 +17,17 @@ class DeleteMigrationWorkflowHandler
     /** @var MigrationDeleteData $deleteData */
     private $deleteData;
 
-    /** @var DeleteMigratonWorkflowTableHandler $deleteMigrationWorkflowTableHandler */
-    private $deleteMigrationWorkflowTableHandler;
+    /** @var DeleteMigratonWorkflowTableHandler $DeleteMigrationWorkflowTableHandlerContract */
+    private $DeleteMigrationWorkflowTableHandlerContract;
 
     public function __construct(
         MigrationDeleteData $deleteData,
-        DeleteMigrationWorkflowTableHandler $deleteMigrationWorkflowTableHandler
+        DeleteMigrationWorkflowTableHandlerContract $DeleteMigrationWorkflowTableHandlerContract
     )
     {
         $this->logger = LoggerFactory::getLogger();
         $this->deleteData = $deleteData;
-        $this->deleteMigrationWorkflowTableHandler = $deleteMigrationWorkflowTableHandler;
+        $this->DeleteMigrationWorkflowTableHandlerContract = $DeleteMigrationWorkflowTableHandlerContract;
     }
 
     /**
@@ -36,7 +37,7 @@ class DeleteMigrationWorkflowHandler
      */
     public function deleteMigrationWorkflowFromDatabase()
     {
-        $this->deleteMigrationWorkflowTableHandler->deleteMigrationWorkflow(
+        $this->DeleteMigrationWorkflowTableHandlerContract->deleteMigrationWorkflow(
             $this->deleteData->tableName(),
             $this->deleteData->detailTableName(),
             $this->deleteData->workflowData()

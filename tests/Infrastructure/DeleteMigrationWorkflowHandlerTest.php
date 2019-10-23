@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use MrCoto\MigrationWorkflow\Domain\Handlers\DeleteMigrationWorkflowHandler;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationDeleteData;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\Stub;
-use MrCoto\MigrationWorkflow\Infrastructure\Handlers\DeleteMigrationWorkflowTableEloquentHandler;
+use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\DeleteMigrationWorkflowTableEloquentHandler;
 use MrCoto\MigrationWorkflow\Test\LaravelTest;
 
 class DeleteMigrationWorkflowHandlerTest extends LaravelTest

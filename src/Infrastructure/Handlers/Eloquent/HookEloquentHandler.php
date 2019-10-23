@@ -3,11 +3,11 @@
 namespace MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent;
 
 use Illuminate\Support\Facades\DB;
-use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationWorkflowHookHandler;
+use MrCoto\MigrationWorkflow\Domain\Contracts\MigrationWorkflowHookHandlerContract;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowCollection;
 
-class HookEloquentHandler implements MigrationWorkflowHookHandler
+class HookEloquentHandler implements MigrationWorkflowHookHandlerContract
 {
     /**
      * Hook executed before all steps

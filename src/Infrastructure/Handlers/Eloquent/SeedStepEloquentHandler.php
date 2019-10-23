@@ -3,12 +3,12 @@
 namespace MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent;
 
 use Illuminate\Database\Seeder;
-use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationWorkflowStepHandler;
+use MrCoto\MigrationWorkflow\Domain\Contracts\MigrationWorkflowStepHandlerContract;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep;
 use MrCoto\MigrationWorkflow\Infrastructure\Exceptions\ClassFileIsNotSeederException;
 use ReflectionClass;
 
-class SeedStepEloquentHandler extends Seeder implements MigrationWorkflowStepHandler
+class SeedStepEloquentHandler extends Seeder implements MigrationWorkflowStepHandlerContract
 {
     
     /**
