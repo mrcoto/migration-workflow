@@ -46,13 +46,8 @@ class MigrateDeployCommand extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->logger = new ConsoleMonologLogger;
-        $this->migrationWorkflowHandler = new MigrationWorkflowHandler(
-            $this->logger,
-            new MigrationStepEloquentHandler,
-            new SeedStepEloquentHandler,
-            new HookEloquentHandler
-        );
+        $loggerClass = config('migration_workflow.logger', ConsoleMonologLogger::class);
+        $this->logger = new $loggerClass;
     }
 
     /**
@@ -62,6 +57,13 @@ class MigrateDeployCommand extends Command
      */
     public function handle()
     {
+        $this->migrationWorkflowHandler = new MigrationWorkflowHandler(
+            $this->logger,
+            new MigrationStepEloquentHandler,
+            new SeedStepEloquentHandler,
+            new HookEloquentHandler
+        );
+
         $this->migrationDeployHandler = new MigrationDeployHandler(
             new MigrationDeployData(
                 config('migration_workflow.table_name'),

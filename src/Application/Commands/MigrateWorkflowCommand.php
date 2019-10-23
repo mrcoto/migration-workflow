@@ -4,6 +4,7 @@ namespace MrCoto\MigrationWorkflow\Application\Commands;
 
 use Illuminate\Console\Command;
 use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationWorkflowHandler;
+use MrCoto\MigrationWorkflow\Domain\Logger\Logger;
 use MrCoto\MigrationWorkflow\Domain\MigrationWorkflowContract;
 use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\HookEloquentHandler;
 use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\MigrationStepEloquentHandler;
@@ -26,6 +27,7 @@ class MigrateWorkflowCommand extends Command
      */
     protected $description = 'Run specific Migration Workflow';
 
+    /** @var Logger $logger */
     private $logger;
 
     private $migrationWorkflowHandler;
@@ -38,13 +40,8 @@ class MigrateWorkflowCommand extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->logger = new ConsoleMonologLogger;
-        $this->migrationWorkflowHandler = new MigrationWorkflowHandler(
-            $this->logger,
-            new MigrationStepEloquentHandler,
-            new SeedStepEloquentHandler,
-            new HookEloquentHandler
-        );
+        $loggerClass = config('migration_workflow.logger', ConsoleMonologLogger::class);
+        $this->logger = new $loggerClass;
     }
 
     /**
@@ -54,6 +51,13 @@ class MigrateWorkflowCommand extends Command
      */
     public function handle()
     {
+        $this->migrationWorkflowHandler = new MigrationWorkflowHandler(
+            $this->logger,
+            new MigrationStepEloquentHandler,
+            new SeedStepEloquentHandler,
+            new HookEloquentHandler
+        );
+
         $migrationWorkflow = $this->getMigrationWorkFlowClass();
         $this->migrationWorkflowHandler->handle($migrationWorkflow);
     }

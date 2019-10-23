@@ -39,7 +39,8 @@ class ModuleMakeMigrationWorkflowCommand extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->logger = new ConsoleMonologLogger;
+        $loggerClass = config('migration_workflow.logger', ConsoleMonologLogger::class);
+        $this->logger = new $loggerClass;
     }
 
     /**

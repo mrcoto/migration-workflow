@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return [
 
@@ -35,5 +35,15 @@ return [
     'workflows' => [
         'App\MigrationWorkflows'
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Logger Class
+    |--------------------------------------------------------------------------
+    |
+    | Logger Class for logging
+    |
+    */
+    'logger' => MrCoto\MigrationWorkflow\Infrastructure\Logger\ConsoleMonologLogger::class,
 
 ];

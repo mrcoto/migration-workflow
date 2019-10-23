@@ -21,6 +21,7 @@ abstract class LaravelTest extends TestCase
             'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data2',
             'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data1',
         ]);
+        $app['config']->set('migration_workflow.logger', 'MrCoto\MigrationWorkflow\Infrastructure\Logger\SilentLogger');
     }
 
 }
