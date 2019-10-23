@@ -52,7 +52,7 @@ class MigrationDeployHandler
             $this->deployData->workflowPaths(),
             $this->deployData->versions()
         );
-        /** @var MigrationWorkflowData $workflow */
+        /** @var MigrationWorkflowData $workflowData */
         foreach($workflows as $workflowData) {
             $className = get_class($workflowData->workflow());
             if ($this->tableHandler->isWorkflowPresentInDatabase($tableName, $workflowData)) {

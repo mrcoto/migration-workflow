@@ -3,7 +3,6 @@
 namespace MrCoto\MigrationWorkflow\Domain\Handlers;
 
 use Exception;
-use MrCoto\MigrationWorkflow\Domain\Logger\Logger;
 use MrCoto\MigrationWorkflow\Domain\Logger\LoggerFactory;
 use MrCoto\MigrationWorkflow\Domain\MigrationWorkflowContract;
 use MrCoto\MigrationWorkflow\Domain\MigrationWorkflowToken;
