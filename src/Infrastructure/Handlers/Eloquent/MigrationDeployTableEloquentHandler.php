@@ -9,7 +9,7 @@ use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationDeployTableHandler;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowData;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep;
 
-class MigrationEloquentDeployTableHandler implements MigrationDeployTableHandler
+class MigrationDeployTableEloquentHandler implements MigrationDeployTableHandler
 {
 
     /**

@@ -6,8 +6,8 @@ use Illuminate\Console\Command;
 use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationWorkflowHandler;
 use MrCoto\MigrationWorkflow\Domain\MigrationWorkflowContract;
 use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\HookEloquentHandler;
-use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\MigrationEloquentStepHandler;
-use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\SeedEloquentStepHandler;
+use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\MigrationStepEloquentHandler;
+use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\SeedStepEloquentHandler;
 use MrCoto\MigrationWorkflow\Infrastructure\Logger\ConsoleMonologLogger;
 
 class MigrateWorkflowCommand extends Command
@@ -41,8 +41,8 @@ class MigrateWorkflowCommand extends Command
         $this->logger = new ConsoleMonologLogger;
         $this->migrationWorkflowHandler = new MigrationWorkflowHandler(
             $this->logger,
-            new MigrationEloquentStepHandler,
-            new SeedEloquentStepHandler,
+            new MigrationStepEloquentHandler,
+            new SeedStepEloquentHandler,
             new HookEloquentHandler
         );
     }

@@ -7,16 +7,16 @@ use Illuminate\Support\Facades\Schema;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep;
 use MrCoto\MigrationWorkflow\Infrastructure\Exceptions\ClassFileIsNotMigrationException;
 use MrCoto\MigrationWorkflow\Infrastructure\Exceptions\MigrationFileNotFoundException;
-use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\MigrationEloquentStepHandler;
+use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\MigrationStepEloquentHandler;
 use MrCoto\MigrationWorkflow\Test\LaravelTest;
 
-class MigrationEloquentStepHandlerTest extends LaravelTest
+class MigrationStepEloquentHandlerTest extends LaravelTest
 {
 
     public function test_should_throw_exception_if_migration_file_doesnt_exists()
     {
         $this->expectException(MigrationFileNotFoundException::class);
-        $migrationStepHandler = new MigrationEloquentStepHandler;
+        $migrationStepHandler = new MigrationStepEloquentHandler;
         $migrationStepHandler->handle(1, new MigrationWorkflowStep('migration', [
             'RandomFile'
         ]));
@@ -26,7 +26,7 @@ class MigrationEloquentStepHandlerTest extends LaravelTest
     {
         $this->expectException(ClassFileIsNotMigrationException::class);
         Artisan::call('vendor:publish', ['--provider' => 'MrCoto\MigrationWorkflow\Test\Stub\FakeServiceProvider']);
-        $migrationStepHandler = new MigrationEloquentStepHandler;
+        $migrationStepHandler = new MigrationStepEloquentHandler;
         $migrationStepHandler->handle(1, new MigrationWorkflowStep('migration', [
             'database/migrations/2019_10_19_104700_create_not_migration_class_table'
         ]));
@@ -36,7 +36,7 @@ class MigrationEloquentStepHandlerTest extends LaravelTest
     {
         Artisan::call('vendor:publish', ['--provider' => 'MrCoto\MigrationWorkflow\Test\Stub\FakeServiceProvider']);
         Schema::dropIfExists('dummy');
-        $migrationStepHandler = new MigrationEloquentStepHandler;
+        $migrationStepHandler = new MigrationStepEloquentHandler;
         $migrationStepHandler->handle(1, new MigrationWorkflowStep('migration', [
             'database/migrations/2019_10_19_120000_create_dummy_table'
         ]));

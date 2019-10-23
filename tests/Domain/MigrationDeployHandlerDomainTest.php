@@ -8,7 +8,7 @@ use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationWorkflowHandler;
 use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationWorkflowHookHandler;
 use MrCoto\MigrationWorkflow\Domain\Logger\Logger;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationDeployData;
-use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\MigrationEloquentStepHandler;
+use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\MigrationStepEloquentHandler;
 use PHPUnit\Framework\TestCase;
 
 class MigrationDeployHandlerDomainTest extends TestCase
@@ -23,8 +23,8 @@ class MigrationDeployHandlerDomainTest extends TestCase
             'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data2\SeedDummyWorkflow_dev_2019_10_21_101700'
         ))->willReturn(false);
 
-        $migrationHandlerMock = $this->getMockBuilder(MigrationEloquentStepHandler::class)->getMock();
-        $seedHandlerMock = $this->getMockBuilder(MigrationEloquentStepHandler::class)->getMock();
+        $migrationHandlerMock = $this->getMockBuilder(MigrationStepEloquentHandler::class)->getMock();
+        $seedHandlerMock = $this->getMockBuilder(MigrationStepEloquentHandler::class)->getMock();
         $hookHandlerMock = $this->getMockBuilder(MigrationWorkflowHookHandler::class)->getMock();
         $migrationWorkflowHandler = new MigrationWorkflowHandler(
             $loggerMock,
@@ -62,8 +62,8 @@ class MigrationDeployHandlerDomainTest extends TestCase
         $tableHandlerMock = $this->getMockBuilder(MigrationDeployTableHandler::class)->getMock();
         $tableHandlerMock->method('isWorkflowPresentInDatabase')->willReturn(true);
 
-        $migrationHandlerMock = $this->getMockBuilder(MigrationEloquentStepHandler::class)->getMock();
-        $seedHandlerMock = $this->getMockBuilder(MigrationEloquentStepHandler::class)->getMock();
+        $migrationHandlerMock = $this->getMockBuilder(MigrationStepEloquentHandler::class)->getMock();
+        $seedHandlerMock = $this->getMockBuilder(MigrationStepEloquentHandler::class)->getMock();
         $hookHandlerMock = $this->getMockBuilder(MigrationWorkflowHookHandler::class)->getMock();
         $migrationWorkflowHandler = new MigrationWorkflowHandler(
             $loggerMock,

@@ -8,7 +8,7 @@ use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep;
 use MrCoto\MigrationWorkflow\Infrastructure\Exceptions\ClassFileIsNotMigrationException;
 use MrCoto\MigrationWorkflow\Infrastructure\Exceptions\MigrationFileNotFoundException;
 
-class MigrationEloquentStepHandler implements MigrationWorkflowStepHandler
+class MigrationStepEloquentHandler implements MigrationWorkflowStepHandler
 {
     
     /**

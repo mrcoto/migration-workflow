@@ -9,8 +9,8 @@ use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationWorkflowHandler;
 use MrCoto\MigrationWorkflow\Domain\Logger\Logger;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep;
 use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\HookEloquentHandler;
-use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\SeedEloquentStepHandler;
-use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\MigrationEloquentStepHandler;
+use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\SeedStepEloquentHandler;
+use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\MigrationStepEloquentHandler;
 use MrCoto\MigrationWorkflow\Test\LaravelTest;
 use MrCoto\MigrationWorkflow\Test\Stub\Workflow\DummyWorkflow;
 use MrCoto\MigrationWorkflow\Test\Stub\Workflow\DummyWorkflowWithError;
@@ -26,8 +26,8 @@ class MigrationWorkflowHandlerTest extends LaravelTest
         $loggerMock = $this->getMockBuilder(Logger::class)->getMock();
         $workflowHandler = new MigrationWorkflowHandler(
             $loggerMock,
-            new MigrationEloquentStepHandler,
-            new SeedEloquentStepHandler,
+            new MigrationStepEloquentHandler,
+            new SeedStepEloquentHandler,
             new HookEloquentHandler
         );
         $workflowHandler->handle(
@@ -44,8 +44,8 @@ class MigrationWorkflowHandlerTest extends LaravelTest
         $loggerMock = $this->getMockBuilder(Logger::class)->getMock();
         $workflowHandler = new MigrationWorkflowHandler(
             $loggerMock,
-            new MigrationEloquentStepHandler,
-            new SeedEloquentStepHandler,
+            new MigrationStepEloquentHandler,
+            new SeedStepEloquentHandler,
             new HookEloquentHandler
         );
         $workflowHandler->handle(

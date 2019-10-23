@@ -8,7 +8,7 @@ use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep;
 use MrCoto\MigrationWorkflow\Infrastructure\Exceptions\ClassFileIsNotSeederException;
 use ReflectionClass;
 
-class SeedEloquentStepHandler extends Seeder implements MigrationWorkflowStepHandler
+class SeedStepEloquentHandler extends Seeder implements MigrationWorkflowStepHandler
 {
     
     /**

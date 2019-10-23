@@ -9,9 +9,9 @@ use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationWorkflowHandler;
 use MrCoto\MigrationWorkflow\Domain\Logger\Logger;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationDeployData;
 use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\HookEloquentHandler;
-use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\MigrationEloquentDeployTableHandler;
-use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\MigrationEloquentStepHandler;
-use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\SeedEloquentStepHandler;
+use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\MigrationDeployTableEloquentHandler;
+use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\MigrationStepEloquentHandler;
+use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\SeedStepEloquentHandler;
 use MrCoto\MigrationWorkflow\Test\LaravelTest;
 
 class MigrationDeployHandlerTest extends LaravelTest
@@ -27,8 +27,8 @@ class MigrationDeployHandlerTest extends LaravelTest
 
         $workflowHandler = new MigrationWorkflowHandler(
             $loggerMock,
-            new MigrationEloquentStepHandler,
-            new SeedEloquentStepHandler,
+            new MigrationStepEloquentHandler,
+            new SeedStepEloquentHandler,
             new HookEloquentHandler
         );
             
@@ -42,7 +42,7 @@ class MigrationDeployHandlerTest extends LaravelTest
                 ],
                 ['dev']
             ),
-            new MigrationEloquentDeployTableHandler(),
+            new MigrationDeployTableEloquentHandler(),
             $workflowHandler,
             $loggerMock
         );
@@ -71,8 +71,8 @@ class MigrationDeployHandlerTest extends LaravelTest
 
         $workflowHandler = new MigrationWorkflowHandler(
             $loggerMock,
-            new MigrationEloquentStepHandler,
-            new SeedEloquentStepHandler,
+            new MigrationStepEloquentHandler,
+            new SeedStepEloquentHandler,
             new HookEloquentHandler
         );
             
@@ -86,7 +86,7 @@ class MigrationDeployHandlerTest extends LaravelTest
                 ],
                 ['dev']
             ),
-            new MigrationEloquentDeployTableHandler(),
+            new MigrationDeployTableEloquentHandler(),
             $workflowHandler,
             $loggerMock
         );
