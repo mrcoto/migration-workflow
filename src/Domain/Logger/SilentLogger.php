@@ -1,6 +1,6 @@
 <?php 
 
-namespace MrCoto\MigrationWorkflow\Infrastructure\Logger;
+namespace MrCoto\MigrationWorkflow\Domain\Logger;
 
 use MrCoto\MigrationWorkflow\Domain\Logger\Logger;
 

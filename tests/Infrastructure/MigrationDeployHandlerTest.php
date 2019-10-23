@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationDeployHandler;
 use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationWorkflowHandler;
-use MrCoto\MigrationWorkflow\Domain\Logger\Logger;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationDeployData;
 use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\HookEloquentHandler;
 use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\MigrationDeployTableEloquentHandler;
@@ -23,10 +22,7 @@ class MigrationDeployHandlerTest extends LaravelTest
         Schema::dropIfExists('migration_workflow');
         Schema::dropIfExists('dummy');
         
-        $loggerMock = $this->getMockBuilder(Logger::class)->getMock();
-
         $workflowHandler = new MigrationWorkflowHandler(
-            $loggerMock,
             new MigrationStepEloquentHandler,
             new SeedStepEloquentHandler,
             new HookEloquentHandler
@@ -43,8 +39,7 @@ class MigrationDeployHandlerTest extends LaravelTest
                 ['dev']
             ),
             new MigrationDeployTableEloquentHandler(),
-            $workflowHandler,
-            $loggerMock
+            $workflowHandler
         );
 
         $migrationDeployHandler->deploy();
@@ -67,10 +62,7 @@ class MigrationDeployHandlerTest extends LaravelTest
 
     public function test_should_skip_dev_migration_workflows()
     {
-        $loggerMock = $this->getMockBuilder(Logger::class)->getMock();
-
         $workflowHandler = new MigrationWorkflowHandler(
-            $loggerMock,
             new MigrationStepEloquentHandler,
             new SeedStepEloquentHandler,
             new HookEloquentHandler
@@ -87,8 +79,7 @@ class MigrationDeployHandlerTest extends LaravelTest
                 ['dev']
             ),
             new MigrationDeployTableEloquentHandler(),
-            $workflowHandler,
-            $loggerMock
+            $workflowHandler
         );
 
         $migrationDeployHandler->deploy();

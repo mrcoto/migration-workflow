@@ -4,6 +4,7 @@ namespace MrCoto\MigrationWorkflow\Domain\Handlers;
 
 use Exception;
 use MrCoto\MigrationWorkflow\Domain\Logger\Logger;
+use MrCoto\MigrationWorkflow\Domain\Logger\LoggerFactory;
 use MrCoto\MigrationWorkflow\Domain\MigrationWorkflowContract;
 use MrCoto\MigrationWorkflow\Domain\MigrationWorkflowToken;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep;
@@ -17,13 +18,12 @@ class MigrationWorkflowHandler
     private $hookHandler;
 
     public function __construct(
-        Logger $logger,
         MigrationWorkflowStepHandler $migrationHandler,
         MigrationWorkflowStepHandler $seedHandler,
         MigrationWorkflowHookHandler $hookHandler
     )
     {
-        $this->logger = $logger;       
+        $this->logger = LoggerFactory::getLogger();       
         $this->migrationHandler = $migrationHandler;
         $this->seedHandler = $seedHandler; 
         $this->hookHandler = $hookHandler;

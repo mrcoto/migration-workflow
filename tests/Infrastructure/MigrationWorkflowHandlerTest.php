@@ -6,8 +6,6 @@ use Exception;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationWorkflowHandler;
-use MrCoto\MigrationWorkflow\Domain\Logger\Logger;
-use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowStep;
 use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\HookEloquentHandler;
 use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\SeedStepEloquentHandler;
 use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\MigrationStepEloquentHandler;
@@ -23,9 +21,7 @@ class MigrationWorkflowHandlerTest extends LaravelTest
         $this->expectException(Exception::class);
         Artisan::call('vendor:publish', ['--provider' => 'MrCoto\MigrationWorkflow\Test\Stub\FakeServiceProvider']);
         Schema::dropIfExists('dummy');
-        $loggerMock = $this->getMockBuilder(Logger::class)->getMock();
         $workflowHandler = new MigrationWorkflowHandler(
-            $loggerMock,
             new MigrationStepEloquentHandler,
             new SeedStepEloquentHandler,
             new HookEloquentHandler
@@ -41,9 +37,7 @@ class MigrationWorkflowHandlerTest extends LaravelTest
     {
         Artisan::call('vendor:publish', ['--provider' => 'MrCoto\MigrationWorkflow\Test\Stub\FakeServiceProvider']);
         Schema::dropIfExists('dummy');
-        $loggerMock = $this->getMockBuilder(Logger::class)->getMock();
         $workflowHandler = new MigrationWorkflowHandler(
-            $loggerMock,
             new MigrationStepEloquentHandler,
             new SeedStepEloquentHandler,
             new HookEloquentHandler

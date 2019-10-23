@@ -6,7 +6,6 @@ use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationDeployHandler;
 use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationDeployTableHandler;
 use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationWorkflowHandler;
 use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationWorkflowHookHandler;
-use MrCoto\MigrationWorkflow\Domain\Logger\Logger;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationDeployData;
 use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\MigrationStepEloquentHandler;
 use PHPUnit\Framework\TestCase;
@@ -16,7 +15,6 @@ class MigrationDeployHandlerDomainTest extends TestCase
 
     public function test_should_run_dev_migration_workflows()
     {
-        $loggerMock = $this->getMockBuilder(Logger::class)->getMock();
         $tableHandlerMock = $this->getMockBuilder(MigrationDeployTableHandler::class)->getMock();
         $tableHandlerMock->method('isWorkflowPresentInDatabase')->will($this->onConsecutiveCalls(
             'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data1\CreateDummyWorkflow_dev_2019_10_21_101600',
@@ -27,7 +25,6 @@ class MigrationDeployHandlerDomainTest extends TestCase
         $seedHandlerMock = $this->getMockBuilder(MigrationStepEloquentHandler::class)->getMock();
         $hookHandlerMock = $this->getMockBuilder(MigrationWorkflowHookHandler::class)->getMock();
         $migrationWorkflowHandler = new MigrationWorkflowHandler(
-            $loggerMock,
             $migrationHandlerMock,
             $seedHandlerMock,
             $hookHandlerMock
@@ -44,8 +41,7 @@ class MigrationDeployHandlerDomainTest extends TestCase
                 ['dev']
             ),
             $tableHandlerMock,
-            $migrationWorkflowHandler,
-            $loggerMock
+            $migrationWorkflowHandler
         );
 
         $tableHandlerMock->expects($this->exactly(1))->method('createMigrationWorkflowTableIfNotExists');
@@ -58,7 +54,6 @@ class MigrationDeployHandlerDomainTest extends TestCase
 
     public function test_should_run_prod_migration_workflows()
     {
-        $loggerMock = $this->getMockBuilder(Logger::class)->getMock();
         $tableHandlerMock = $this->getMockBuilder(MigrationDeployTableHandler::class)->getMock();
         $tableHandlerMock->method('isWorkflowPresentInDatabase')->willReturn(true);
 
@@ -66,7 +61,6 @@ class MigrationDeployHandlerDomainTest extends TestCase
         $seedHandlerMock = $this->getMockBuilder(MigrationStepEloquentHandler::class)->getMock();
         $hookHandlerMock = $this->getMockBuilder(MigrationWorkflowHookHandler::class)->getMock();
         $migrationWorkflowHandler = new MigrationWorkflowHandler(
-            $loggerMock,
             $migrationHandlerMock,
             $seedHandlerMock,
             $hookHandlerMock
@@ -83,8 +77,7 @@ class MigrationDeployHandlerDomainTest extends TestCase
                 ['prod']
             ),
             $tableHandlerMock,
-            $migrationWorkflowHandler,
-            $loggerMock
+            $migrationWorkflowHandler
         );
 
         $tableHandlerMock->expects($this->exactly(1))->method('createMigrationWorkflowTableIfNotExists');

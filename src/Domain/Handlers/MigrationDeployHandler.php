@@ -4,6 +4,7 @@ namespace MrCoto\MigrationWorkflow\Domain\Handlers;
 
 use HaydenPierce\ClassFinder\ClassFinder;
 use MrCoto\MigrationWorkflow\Domain\Logger\Logger;
+use MrCoto\MigrationWorkflow\Domain\Logger\LoggerFactory;
 use MrCoto\MigrationWorkflow\Domain\MigrationWorkflowContract;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationDeployData;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowData;
@@ -27,13 +28,12 @@ class MigrationDeployHandler
     public function __construct(
         MigrationDeployData $deployData,
         MigrationDeployTableHandler $tableHandler,
-        MigrationWorkflowHandler $migrationWorkflowHandler,
-        Logger $logger
+        MigrationWorkflowHandler $migrationWorkflowHandler
     )
     {
+        $this->logger = LoggerFactory::getLogger();
         $this->deployData = $deployData;
         $this->tableHandler = $tableHandler;
-        $this->logger = $logger;
         $this->migrationWorkflowHandler = $migrationWorkflowHandler;
     }
 

@@ -5,7 +5,7 @@ namespace MrCoto\MigrationWorkflow\Application\Commands;
 use Illuminate\Console\Command;
 use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationDeployHandler;
 use MrCoto\MigrationWorkflow\Domain\Handlers\MigrationWorkflowHandler;
-use MrCoto\MigrationWorkflow\Domain\Logger\Logger;
+use MrCoto\MigrationWorkflow\Domain\Logger\LoggerFactory;
 use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationDeployData;
 use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\HookEloquentHandler;
 use MrCoto\MigrationWorkflow\Infrastructure\Handlers\Eloquent\MigrationDeployTableEloquentHandler;
@@ -29,9 +29,6 @@ class MigrateDeployCommand extends Command
      */
     protected $description = 'Deploy migration workflows (all if no versions are specified, Ej: --versions=v1,v2)';
 
-    /** @var Logger $logger */
-    private $logger;
-
     /** @var MigrationWorkflowHandler $migrationWorkflowHandler */
     private $migrationWorkflowHandler;
 
@@ -47,7 +44,7 @@ class MigrateDeployCommand extends Command
     {
         parent::__construct();
         $loggerClass = config('migration_workflow.logger', ConsoleMonologLogger::class);
-        $this->logger = new $loggerClass;
+        LoggerFactory::setLogger(new $loggerClass);
     }
 
     /**
@@ -58,7 +55,6 @@ class MigrateDeployCommand extends Command
     public function handle()
     {
         $this->migrationWorkflowHandler = new MigrationWorkflowHandler(
-            $this->logger,
             new MigrationStepEloquentHandler,
             new SeedStepEloquentHandler,
             new HookEloquentHandler
@@ -72,8 +68,7 @@ class MigrateDeployCommand extends Command
                 $this->getVersions()
             ),
             new MigrationDeployTableEloquentHandler,
-            $this->migrationWorkflowHandler,
-            $this->logger
+            $this->migrationWorkflowHandler
         );
 
         $this->migrationDeployHandler->deploy();
