@@ -191,6 +191,8 @@ php artisan delete:workflow MyWorkflow dev
 This will find your **LAST** ```MyWorkflow_dev_*``` file and then will remove records from database.
 If you add a ```--file``` flag, the file from fylesystem will be removed.
 
+**NOTE:** This command only works if your file is found.
+
 
 ----------------------------
 
