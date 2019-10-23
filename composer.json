@@ -29,7 +29,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "MrCoto\\MigrationWorkflow\\Test\\": "tests"
+            "MrCoto\\MigrationWorkflow\\Test\\": "tests",
+            "App\\": "app"
         },
         "classmap": [
             "tests/Stub/seeders"

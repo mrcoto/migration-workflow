@@ -3,6 +3,7 @@
 namespace MrCoto\MigrationWorkflow\Application;
 
 use Illuminate\Support\ServiceProvider;
+use MrCoto\MigrationWorkflow\Application\Commands\DeleteMigrationWorkflowCommand;
 use MrCoto\MigrationWorkflow\Application\Commands\MakeMigrationWorkflowCommand;
 use MrCoto\MigrationWorkflow\Application\Commands\MigrateDeployCommand;
 use MrCoto\MigrationWorkflow\Application\Commands\MigrateWorkflowCommand;
@@ -23,7 +24,8 @@ class LaravelMigrationWorkflowServiceProvider extends ServiceProvider
                 MigrateWorkflowCommand::class,
                 MigrateDeployCommand::class,
                 MakeMigrationWorkflowCommand::class,
-                ModuleMakeMigrationWorkflowCommand::class
+                ModuleMakeMigrationWorkflowCommand::class,
+                DeleteMigrationWorkflowCommand::class,
             ]);
             $this->publishes([
                 __DIR__.'/Config/migration_workflow.php' => config_path('migration_workflow.php'),

@@ -14,6 +14,14 @@ class Stub
     /** @var string $stubName */
     private $stubName;
 
+    /** @var string $stubPath */
+    private $stubPath;
+
+    /** @var string $stubDir */
+    private $stubDir;
+
+    private const DEFAULT_PATH = __DIR__."/../.stub/";
+
     /** @var resource $stub */
     private $stub;
 
@@ -31,12 +39,9 @@ class Stub
         if (empty($className)) {
             throw new \InvalidArgumentException("class name can't be empty");
         }
-        $stubDir = __DIR__."/../.stub/$stubName.stub";
-        if (!file_exists($stubDir)) {
-            throw new \InvalidArgumentException("Stub file doesn't exists");
-        }
         $this->stubName = $stubName;
-        $this->stub = file_get_contents($stubDir);
+        $this->setStubPath(self::DEFAULT_PATH);
+        $this->stub = file_get_contents($this->stubDir);
     }
 
     /**
@@ -65,6 +70,33 @@ class Stub
         $path = $this->generateFolders();
         $className = $this->className;
         file_put_contents("$path/$className.php", $this->render());
+    }
+
+    /**
+     * Set new stub path. Must have "/" at the end
+     *
+     * @param string $stubPath
+     * @return void
+     */
+    public function setStubPath(string $stubPath)
+    {
+        $this->stubPath = $stubPath;
+        $this->setStubDir($this->stubPath.$this->stubName.".stub");
+        $this->stub = file_get_contents($this->stubDir);
+    }
+
+    /**
+     * Set stub's dir
+     *
+     * @param string $stubDir
+     * @return void
+     */
+    private function setStubDir(string $stubDir)
+    {
+        if (!file_exists($stubDir)) {
+            throw new \InvalidArgumentException("Stub file doesn't exists");
+        }
+        $this->stubDir = $stubDir;
     }
 
     /**

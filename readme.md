@@ -10,6 +10,8 @@ This package attempt to define a way to specify the sequential order of those fi
 
 |Version|Descripción|
 |-|-|
+|V1.4.0|Added ```delete:workflow``` command|
+|V1.3.0|Added ```migration_workflow.logger``` config value|
 |V1.2.0|Added ```make:workflow``` and ```module:make-workflow``` command|
 |V1.1.0|You can deploy all your workflows defined in ```migration_workflow``` config file with ```migrate:deploy``` command |
 |V1.0.1|You can run seeds from database/seeders (In V1.0.0 you can only un seeds inside ```app/```)|
@@ -177,6 +179,16 @@ This command generate the following file ```Modules/General/MigrationWorkflows/M
 Version argument is optional (default is "v1")
 
 **Note:** This command is useful is you're using the [laravel modules package](https://github.com/nWidart/laravel-modules).
+
+3. The third helper command is:
+
+```bash
+php artisan delete:workflow MyWorkflow dev
+```
+
+This will find your **LAST** ```MyWorkflow_dev_*``` file and then will remove records from database.
+If you add a ```--file``` flag, the file from fylesystem will be removed.
+
 
 ----------------------------
 
