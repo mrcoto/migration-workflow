@@ -53,6 +53,8 @@ where all your workflows are tracked by ```migrate:deploy``` command (not by ```
 In the ```workflows``` config, you have to specify all namespaces where your workflows are placed.
 By default, you should place your workflows in `App\MigrationWorkflows`.
 
+The last config, is ```logger```, where you can specify your logger class where migration workflows are logged.
+
 ## Migrate Workflow Command
 
 The single usage is:
