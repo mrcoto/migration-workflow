@@ -26,22 +26,79 @@ class Stub
     private $stub;
 
     public function __construct(
-        string $namespace,
-        string $className,
+        string $baseNamespace,
+        string $fullClassName,
         string $stubName
     )
     {
-        $this->namespace = $namespace;
-        if (empty($namespace)) {
+        if (empty($baseNamespace)) {
             throw new \InvalidArgumentException("namespace can't be empty");
         }
-        $this->className = $className;
-        if (empty($className)) {
+        if (empty($fullClassName)) {
             throw new \InvalidArgumentException("class name can't be empty");
         }
+        $this->namespace = $this->getFullNameSpace($baseNamespace, $fullClassName);
+        $this->className = $this->getClass($fullClassName);
         $this->stubName = $stubName;
         $this->setStubPath(self::DEFAULT_PATH);
         $this->stub = file_get_contents($this->stubDir);
+    }
+
+    /**
+     * Get full namespace given $baseNamespace and $fullClassName
+     * Example:
+     * App\MigrationWorkflows and FolderOne\FolderTwo\MyWorkflow
+     * App\\MigrationWorkflows and FolderOne\\FolderTwo\\MyWorkflow
+     * App/MigrationWorkflows and FolderOne/FolderTwo/MyWorkflow
+     * 
+     * will return
+     * App\MigrationWorkflows\FolderOne\FolderTwo in all cases
+     *
+     * @param string $baseNamespace
+     * @param string $fullClassName
+     * @return string
+     */
+    private function getFullNameSpace(string $baseNamespace, string $fullClassName) : string
+    {
+        $baseNamespace = $this->normalizeSlash($baseNamespace);
+        $className = $this->normalizeSlash($fullClassName);
+        $classParts = explode('\\', $className);
+        $classNamespace = implode('\\', array_splice($classParts, 0, count($classParts) - 1));
+        if (!empty($classNamespace)) {
+            return "$baseNamespace\\$classNamespace";
+        }
+        return $baseNamespace;    
+    }
+
+    /**
+     * Get only class part from $fullClassName
+     * Example:
+     * FolderOne\FolderTwo\MyWorkflow
+     * FolderOne\\FolderTwo\\MyWorkflow
+     * FolderOne/FolderTwo/MyWorkflow
+     * 
+     * will return
+     * MyWorkflow in all cases
+     *
+     * @param string $fullClassName
+     * @return string
+     */
+    private function getClass(string $fullClassName) : string
+    {
+        $normalizedClassName = $this->normalizeSlash($fullClassName);
+        $classParts = explode('\\', $normalizedClassName);
+        return end($classParts);   
+    }
+
+    /**
+     * Normalize string slashs
+     *
+     * @param string $data
+     * @return string
+     */
+    private function normalizeSlash(string $data) : string
+    {
+      return str_replace(['\\', '\\\\', '/'], ['\\', '\\', '\\'], $data);
     }
 
     /**

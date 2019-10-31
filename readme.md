@@ -10,6 +10,7 @@ This package attempt to define a way to specify the sequential order of those fi
 
 |Version|Descripción|
 |-|-|
+|V1.4.1|Commands ```make:workflow``` and ```module:make-workflow```  will generate correct folders and class with this case inputs: ```FolderOne\FolderTwo\MyClass```, ```FolderOne\\FolderTwo\\MyClass```, ```FolderOne/FolderTwo/MyClass```|
 |V1.4.0|Added ```delete:workflow``` command|
 |V1.3.0|Added ```migration_workflow.logger``` config value|
 |V1.2.0|Added ```make:workflow``` and ```module:make-workflow``` command|
