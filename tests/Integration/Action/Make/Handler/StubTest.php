@@ -3,6 +3,7 @@
 namespace MrCoto\MigrationWorkflow\Test\Integration\Action\Make\Handler;
 
 use MrCoto\MigrationWorkflow\Action\Make\Handler\Stub;
+use MrCoto\MigrationWorkflow\Test\Helper\FileHandler;
 use PHPUnit\Framework\TestCase;
 
 class StubTest extends TestCase
@@ -10,7 +11,7 @@ class StubTest extends TestCase
 
     protected function tearDown(): void
     {
-        $this->remove_test_case_files();
+        (new FileHandler)->delete('app');
     }
 
     public function test_should_throw_exception_if_namespace_is_empty()
@@ -129,30 +130,6 @@ class StubTest extends TestCase
         );
         $stub->generate();
         $this->assertTrue(file_exists('app/MigrationWorkflows/FolderOne/FolderTwo/MyMigrationClass_dev_2019_10_21_160230.php'));
-    }
-
-    private function remove_test_case_files()
-    {
-        $this->removeFile('app/MigrationWorkflows/FolderOne/FolderTwo/MyMigrationClass_dev_2019_10_21_160230.php');
-        $this->removeDir('app/MigrationWorkflows/FolderOne/FolderTwo');
-        $this->removeDir('app/MigrationWorkflows/FolderOne');
-        $this->removeFile('app/MigrationWorkflows/MyMigrationClass_dev_2019_10_21_160230.php');
-        $this->removeDir('app/MigrationWorkflows');
-        $this->removeDir('app');
-    }
-
-    private function removeDir(string $dirPath) 
-    {
-        if (file_exists($dirPath)) {
-            rmdir($dirPath);
-        }
-    }
-
-    private function removeFile(string $filePath)
-    {
-        if (file_exists($filePath)){
-            unlink($filePath);
-        }
     }
 
     private function get_simple_rendered_stub()

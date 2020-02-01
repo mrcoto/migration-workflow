@@ -15,14 +15,14 @@ class MakeMigrationWorkflowCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'make:workflow {className} {version=v1}';
+    protected $signature = 'make:workflow {className} {versions=v1} {--owndir} {--date}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Generate a workflow php file';
+    protected $description = 'Generate workflows php file';
 
     private const DEFAULT_NAMESPACE = 'App\MigrationWorkflows';
 
@@ -51,20 +51,58 @@ class MakeMigrationWorkflowCommand extends Command
     public function handle()
     {
         $this->date = date('Y_m_d_His');
-        $className = $this->getClassName();
-        $stub = new Stub(self::DEFAULT_NAMESPACE, $className, 'migration_workflow');
-        $stub->generate();
-        $this->logger->info("Class ".self::DEFAULT_NAMESPACE."\\$className generated");
+        $versions = $this->getVersions();
+        foreach($versions as $version) {
+            $className = $this->getClassName($version);
+            $baseNamespace = $this->getBaseNamespace($version);
+            $stub = new Stub($baseNamespace, $className);
+            $stub->generate();
+            $this->logger->info("Class $baseNamespace\\$className generated");
+        }
+    }
+
+    /**
+     * Get versions
+     *
+     * @return array
+     */
+    private function getVersions() : array
+    {
+        $versions = $this->argument('versions');
+        if (!$versions || empty($versions)) {
+            return [];
+        }
+        return array_map(function(string $version) {
+            return trim($version);
+        }, explode(',', $versions));
+    }
+
+    /**
+     * Get Base Namespace:
+     * 
+     * Default => App\MigrationWorkflows
+     * If --owndir passed => App\MigrationWorkflows\Version
+     * If --date passed => App\MigrationWorkflows\YYYY\MM\DD
+     * IF --owndir and --date passed => App\MigrationWorkflows\Version\YYYY\MM\DD
+     *
+     * @return string
+     */
+    private function getBaseNamespace(string $version) : string
+    {
+        return self::DEFAULT_NAMESPACE.
+               ($this->option('owndir') ? '\\'.ucfirst($version) : '').
+               ($this->option('date') ? '\\'.str_replace('-', '\\', date('Y-m-d')) : '');
     }
 
     /**
      * Return class name
      *
+     * @param string $version
      * @return string
      */
-    private function getClassName() : string
+    private function getClassName(string $version) : string
     {
-        return $this->argument('className').'_'.$this->argument('version').'_'.$this->date;
+        return $this->argument('className').'_'.$version.'_'.$this->date;
     }
 
     /**

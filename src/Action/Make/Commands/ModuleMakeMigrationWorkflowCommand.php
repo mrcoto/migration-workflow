@@ -15,7 +15,7 @@ class ModuleMakeMigrationWorkflowCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'module:make-workflow {module} {className} {version=v1}';
+    protected $signature = 'module:make-workflow {module} {className} {versions=v1} {--owndir} {--date}';
 
     /**
      * The console command description.
@@ -51,21 +51,58 @@ class ModuleMakeMigrationWorkflowCommand extends Command
     public function handle()
     {
         $this->date = date('Y_m_d_His');
-        $className = $this->getClassName();
-        $namespace = str_replace('$MODULE', $this->argument('module'), self::DEFAULT_NAMESPACE);
-        $stub = new Stub($namespace, $className, 'migration_workflow');
-        $stub->generate();
-        $this->logger->info("Class $namespace\\$className generated");
+        $versions = $this->getVersions();
+        foreach($versions as $version) {
+            $className = $this->getClassName($version);
+            $baseNamespace = $this->getBaseNamespace($version);
+            $stub = new Stub($baseNamespace, $className);
+            $stub->generate();
+            $this->logger->info("Class $baseNamespace\\$className generated");
+        }
+    }
+
+    /**
+     * Get versions
+     *
+     * @return array
+     */
+    private function getVersions() : array
+    {
+        $versions = $this->argument('versions');
+        if (!$versions || empty($versions)) {
+            return [];
+        }
+        return array_map(function(string $version) {
+            return trim($version);
+        }, explode(',', $versions));
+    }
+
+    /**
+     * Get Base Namespace:
+     * 
+     * Default => Module\Sale\MigrationWorkflows
+     * If --owndir passed => Module\Sale\MigrationWorkflows\Version
+     * If --date passed => Module\Sale\MigrationWorkflows\YYYY\MM\DD
+     * IF --owndir and --date passed => Module\Sale\MigrationWorkflows\Version\YYYY\MM\DD
+     *
+     * @return string
+     */
+    private function getBaseNamespace(string $version) : string
+    {
+        return str_replace('$MODULE', $this->argument('module'), self::DEFAULT_NAMESPACE).
+               ($this->option('owndir') ? '\\'.ucfirst($version) : '').
+               ($this->option('date') ? '\\'.str_replace('-', '\\', date('Y-m-d')) : '');
     }
 
     /**
      * Return class name
      *
+     * @param string $version
      * @return string
      */
-    private function getClassName() : string
+    private function getClassName(string $version) : string
     {
-        return $this->argument('className').'_'.$this->argument('version').'_'.$this->date;
+        return $this->argument('className').'_'.$version.'_'.$this->date;
     }
 
     /**

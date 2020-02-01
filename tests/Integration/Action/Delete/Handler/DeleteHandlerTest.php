@@ -7,6 +7,7 @@ use MrCoto\MigrationWorkflow\Action\Delete\Handler\DeleteHandler;
 use MrCoto\MigrationWorkflow\Action\Delete\Handler\DeleteRepository;
 use MrCoto\MigrationWorkflow\Action\Delete\ValueObject\DeleteData;
 use MrCoto\MigrationWorkflow\Action\Make\Handler\Stub;
+use MrCoto\MigrationWorkflow\Test\Helper\FileHandler;
 use MrCoto\MigrationWorkflow\Test\LaravelTest;
 
 class DeleteHandlerTest extends LaravelTest
@@ -25,7 +26,7 @@ class DeleteHandlerTest extends LaravelTest
             'workflow_class' => 'App\MigrationWorkflows\SomeWorkflow_dev_2019_10_23_143400',
         ]);
 
-        $this->remove_stub();
+        (new FileHandler)->delete('app');
     }
 
     public function test_should_remove_file()
@@ -38,7 +39,7 @@ class DeleteHandlerTest extends LaravelTest
 
         $this->assertFalse(file_exists('app/MigrationWorkflows/SomeWorkflow_dev_2019_10_23_143400.php'));
 
-        $this->remove_folders();
+        (new FileHandler)->delete('app');
     }
 
     public function get_new_delete_migration_workflow_handler()  : DeleteHandler
@@ -78,17 +79,6 @@ class DeleteHandlerTest extends LaravelTest
     {
         $stub = new Stub('App\MigrationWorkflows', 'SomeWorkflow_dev_2019_10_23_143400', 'migration_workflow');
         $stub->generate();
-    }
-
-    public function remove_stub()
-    {
-        unlink('app/MigrationWorkflows/SomeWorkflow_dev_2019_10_23_143400.php');
-    }
-
-    public function remove_folders()
-    {
-        rmdir('app/MigrationWorkflows');
-        rmdir('app');
     }
 
 }

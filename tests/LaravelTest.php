@@ -2,10 +2,18 @@
 
 namespace MrCoto\MigrationWorkflow\Test;
 
+use MrCoto\MigrationWorkflow\Test\Helper\FileHandler;
 use Orchestra\Testbench\TestCase;
 
 abstract class LaravelTest extends TestCase
 {
+
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+        (new FileHandler)->delete('app');
+        (new FileHandler)->delete('Modules');
+    }
 
     protected function getPackageProviders($app)
     {

@@ -4,6 +4,7 @@ namespace MrCoto\MigrationWorkflow\Test\Integration\Delete\Commands;
 
 use Illuminate\Support\Facades\Artisan;
 use MrCoto\MigrationWorkflow\Action\Make\Handler\Stub;
+use MrCoto\MigrationWorkflow\Test\Helper\FileHandler;
 use MrCoto\MigrationWorkflow\Test\LaravelTest;
 
 class DeleteMigrationWorkflowCommandTest extends LaravelTest
@@ -11,8 +12,6 @@ class DeleteMigrationWorkflowCommandTest extends LaravelTest
     
     public function test_should_remove_workflow_from_database()
     {
-        $this->clean_app_folder();
-
         $this->set_workflow_paths();
 
         $date = date('Y_m_d_His');
@@ -26,8 +25,7 @@ class DeleteMigrationWorkflowCommandTest extends LaravelTest
             'workflow_class' => "App\MigrationWorkflows\MyMigrationClass_dev_$date"
         ]);
 
-        $this->remove_stub($date);
-        $this->remove_folders();
+        (new FileHandler)->delete('app');
     }
 
     public function test_should_remove_workflow_from_database_and_file()
@@ -45,7 +43,7 @@ class DeleteMigrationWorkflowCommandTest extends LaravelTest
 
         $this->assertFalse(file_exists("app/MigrationWorkflows/MyMigrationClass_dev_$date.php"));
 
-        $this->remove_folders();
+        (new FileHandler)->delete('app');
     }
 
     public function set_workflow_paths()
@@ -60,28 +58,6 @@ class DeleteMigrationWorkflowCommandTest extends LaravelTest
         $stub = new Stub('App\MigrationWorkflows', "MyMigrationClass_dev_$date", 'migration_workflow');
         $stub->setStubPath(__DIR__.'/../../../../Stub/.stub/');
         $stub->generate();
-    }
-
-    public function remove_stub(string $date)
-    {
-        unlink("app/MigrationWorkflows/MyMigrationClass_dev_$date.php");
-    }
-
-    public function remove_folders()
-    {
-        if (is_dir('app/MigrationWorkflows')) rmdir('app/MigrationWorkflows');
-        if (is_dir('app')) rmdir('app');
-    }
-
-    public function clean_app_folder()
-    {
-        $files = glob('app/MigrationWorkflows/*');
-        foreach($files as $file){
-            if(is_file($file)) {
-                unlink($file);
-            }
-        }
-        $this->remove_folders();
     }
 
 }

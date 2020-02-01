@@ -28,7 +28,7 @@ class Stub
     public function __construct(
         string $baseNamespace,
         string $fullClassName,
-        string $stubName
+        string $stubName = 'migration_workflow'
     )
     {
         if (empty($baseNamespace)) {
