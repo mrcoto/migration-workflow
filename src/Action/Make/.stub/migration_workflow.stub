@@ -1,0 +1,28 @@
+<?php 
+
+namespace $NAMESPACE;
+
+use MrCoto\MigrationWorkflow\Core\MigrationWorkflowContract;
+use MrCoto\MigrationWorkflow\Core\ValueObject\MigrationWorkflowCollection;
+use MrCoto\MigrationWorkflow\Core\MigrationWorkflow;
+
+class $CLASSNAME implements MigrationWorkflowContract
+{
+
+    /**
+     * Return migration workflow's step
+     *
+     * @return MigrationWorkflowCollection
+     */
+    public function getWorkFlow(): MigrationWorkflowCollection
+    {
+        return MigrationWorkflow::workflow(
+            array(
+                MigrationWorkflow::step('migration', [
+                    '',
+                ]),
+            )
+        );
+    }
+
+}

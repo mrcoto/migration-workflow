@@ -42,7 +42,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "MrCoto\\MigrationWorkflow\\Application\\LaravelMigrationWorkflowServiceProvider"
+                "MrCoto\\MigrationWorkflow\\Config\\LaravelMigrationWorkflowServiceProvider"
             ]
         }
     }

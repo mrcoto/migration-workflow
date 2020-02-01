@@ -41,7 +41,7 @@ composer require mrcoto/migration-workflow
 Now, you need to publish service provider:
 
 ```bash
-php artisan vendor:publish --provider="MrCoto\MigrationWorkflow\Application\LaravelMigrationWorkflowServiceProvider"
+php artisan vendor:publish --provider="MrCoto\MigrationWorkflow\Config\LaravelMigrationWorkflowServiceProvider"
 ```
 
 This package provide a ```migrate:workflow``` and a ```migrate:deploy``` comand, also a ```migration_workflow``` config file.
@@ -70,7 +70,7 @@ This command executes in **database transaction mode** the workflow defined in y
 
 ## How to define a Workflow?
 
-Your workflow class **MUST** implements ```MrCoto\MigrationWorkflow\Domain\MigrationWorkflowContract``` interface.
+Your workflow class **MUST** implements ```MrCoto\MigrationWorkflow\Core\Contract\MigrationWorkflowContract``` interface.
 
 Then, you need to implement ```public function getWorkFlow(): MigrationWorkflowCollection``` function defined in the previous contract.
 
@@ -81,9 +81,9 @@ Example workflow:
 
 namespace Path\To;
 
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow;
-use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowCollection;
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflowContract;
+use MrCoto\MigrationWorkflow\Core\MigrationWorkflow;
+use MrCoto\MigrationWorkflow\Core\ValueObject\MigrationWorkflowCollection;
+use MrCoto\MigrationWorkflow\Core\MigrationWorkflowContract;
 
 class MigrateWorkflowClass implements MigrationWorkflowContract
 {

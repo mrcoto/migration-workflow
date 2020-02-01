@@ -2,9 +2,9 @@
 
 namespace MrCoto\MigrationWorkflow\Test\Stub\Workflow;
 
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow;
-use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowCollection;
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflowContract;
+use MrCoto\MigrationWorkflow\Core\MigrationWorkflow;
+use MrCoto\MigrationWorkflow\Core\MigrationWorkflowContract;
+use MrCoto\MigrationWorkflow\Core\ValueObject\MigrationWorkflowCollection;
 
 class DummyWorkflowWithError implements MigrationWorkflowContract
 {

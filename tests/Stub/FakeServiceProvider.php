@@ -4,6 +4,9 @@ namespace MrCoto\MigrationWorkflow\Test\Stub;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Provide fake migration and seeders files
+ */
 class FakeServiceProvider extends ServiceProvider
 {
 

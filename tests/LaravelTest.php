@@ -10,7 +10,7 @@ abstract class LaravelTest extends TestCase
     protected function getPackageProviders($app)
     {
         return [
-            'MrCoto\MigrationWorkflow\Application\LaravelMigrationWorkflowServiceProvider',
+            'MrCoto\MigrationWorkflow\Config\LaravelMigrationWorkflowServiceProvider',
             'MrCoto\MigrationWorkflow\Test\Stub\FakeServiceProvider',
         ];
     }
@@ -21,7 +21,7 @@ abstract class LaravelTest extends TestCase
             'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data2',
             'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data1',
         ]);
-        $app['config']->set('migration_workflow.logger', 'MrCoto\MigrationWorkflow\Domain\Logger\SilentLogger');
+        $app['config']->set('migration_workflow.logger', 'MrCoto\MigrationWorkflow\Logger\Handler\SilentLogger');
     }
 
 }

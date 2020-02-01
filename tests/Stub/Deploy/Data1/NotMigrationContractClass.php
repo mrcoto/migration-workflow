@@ -2,8 +2,9 @@
 
 namespace MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data1;
 
-use MrCoto\MigrationWorkflow\Domain\MigrationWorkflow;
-use MrCoto\MigrationWorkflow\Domain\ValueObject\MigrationWorkflowCollection;
+use MrCoto\MigrationWorkflow\Core\MigrationWorkflow;
+use MrCoto\MigrationWorkflow\Core\MigrationWorkflowContract;
+use MrCoto\MigrationWorkflow\Core\ValueObject\MigrationWorkflowCollection;
 
 class NotMigrationContractClass
 {
