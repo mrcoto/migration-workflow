@@ -4,7 +4,7 @@ namespace MrCoto\MigrationWorkflow\Test\Unit\Core\ValueObject;
 
 use MrCoto\MigrationWorkflow\Core\Exceptions\MigrationWorkflowEmptyFilesException;
 use MrCoto\MigrationWorkflow\Core\Exceptions\MigrationWorkflowTypeExpectedException;
-use MrCoto\MigrationWorkflow\Core\MigrationWorkflowToken;
+use MrCoto\MigrationWorkflow\Core\MigrationWorkflowConstant;
 use MrCoto\MigrationWorkflow\Core\ValueObject\MigrationWorkflowStep;
 use PHPUnit\Framework\TestCase;
 
@@ -22,7 +22,7 @@ class MigrationWorkflowStepTest extends TestCase
     public function test_should_throw_exception_if_not_files_are_sent()
     {
         $this->expectException(MigrationWorkflowEmptyFilesException::class);
-        new MigrationWorkflowStep(MigrationWorkflowToken::MIGRATION, [
+        new MigrationWorkflowStep(MigrationWorkflowConstant::MIGRATION, [
 
         ]);
     }

@@ -89,8 +89,7 @@ class DeployHandlerTest extends TestCase
             'table_name',
             'detail_table_name',
             [
-                'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data2',
-                'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data1',
+                'tests',
             ],
             $versions
         );

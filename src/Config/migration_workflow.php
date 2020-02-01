@@ -27,13 +27,13 @@ return [
     | Folders where workflows will be looked for
     |--------------------------------------------------------------------------
     |
-    | You may specify namespace path from where your workflows are placed
+    | You may specify folder name where your workflows are placed
     | Notice that migrate:deploy run your workflows in ascending order,
     | omitting already migrated
     |
     */
     'workflows' => [
-        'App\MigrationWorkflows'
+        'app'
     ],
 
     /*

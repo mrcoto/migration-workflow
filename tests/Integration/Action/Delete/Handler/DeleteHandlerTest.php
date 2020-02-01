@@ -48,7 +48,7 @@ class DeleteHandlerTest extends LaravelTest
                 'migration_workflow',
                 'migration_workflow_detail',
                 [
-                    'App\MigrationWorkflows'
+                    'app'
                 ],
                 'SomeWorkflow',
                 'dev'

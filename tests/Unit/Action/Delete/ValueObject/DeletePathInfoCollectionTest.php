@@ -12,8 +12,7 @@ class DeletePathInfoCollectionTest extends TestCase
     {
         $collection = new DeletePathInfoCollection(
             [
-                'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data2',
-                'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data1',
+                'tests',
             ],
             ['dev']
         );

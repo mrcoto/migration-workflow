@@ -2,8 +2,8 @@
 
 namespace MrCoto\MigrationWorkflow\Action\Deploy\ValueObject;
 
-use HaydenPierce\ClassFinder\ClassFinder;
 use MrCoto\MigrationWorkflow\Core\MigrationWorkflowContract;
+use MrCoto\MigrationWorkflow\Core\MigrationWorkflowConstant;
 use ReflectionClass;
 
 class DeployPathInfoCollection
@@ -14,8 +14,7 @@ class DeployPathInfoCollection
 
     public function __construct(array $workflowPaths, array $versions = [])
     {
-        $classes = $this->getClasses($workflowPaths);
-        $workflows = $this->getWorkflowContractsData($classes);
+        $workflows = $this->getWorkflowContractsData($workflowPaths);
         $workflows = $this->applyVersionFilter($workflows, $versions);
         $workflows = $this->applySortAscending($workflows);
         $this->items = array_map(function(DeployPathInfo $workflowData) {
@@ -29,35 +28,21 @@ class DeployPathInfoCollection
      * Get all classes for given namespaces
      *
      * @param array $workflowPaths
-     * @return array
+     * @return MigrationWorkflowContract[]
      */
-    private function getClasses(array $workflowPaths) : array
+    private function getWorkflowContractsData(array $workflowPaths) : array
     {
-        $classesList = [];
-        foreach($workflowPaths as $path) {
-            $classes = ClassFinder::getClassesInNamespace($path);
-            array_map(function(string $class) use (&$classesList) {
-                $classesList[] = $class;
-            }, $classes);
-        }
-        return $classesList;
-    }
-
-    /**
-     * Get all classes that implements workflow contract
-     *
-     * @param array $workflowClasses
-     * @return MigrationWorkflowContract[] 
-     */
-    private function getWorkflowContractsData(array $workflowClasses) : array
-    {
+        $finder = new \Symfony\Component\Finder\Finder();
+        $iter = new \hanneskod\classtools\Iterator\ClassIterator(
+            $finder->files()
+                ->name(MigrationWorkflowConstant::MIGRATION_WORKFLOW_FILE_REGEX)
+                ->in($workflowPaths)
+        );
         $workflowsData = [];
-        foreach($workflowClasses as $workflowClass) {
-            $reflection = new ReflectionClass($workflowClass);
-            if ($reflection->implementsInterface(MigrationWorkflowContract::class)) {
-                $workflow = $reflection->newInstance();
-                $workflowsData[] = new DeployPathInfo($workflow);
-            }
+        foreach ($iter->type(MigrationWorkflowContract::class) as $workflowType) {
+            $reflection = new ReflectionClass($workflowType->getName());
+            $workflow = $reflection->newInstance();
+            $workflowsData[] = new DeployPathInfo($workflow);
         }
         return $workflowsData;
     }

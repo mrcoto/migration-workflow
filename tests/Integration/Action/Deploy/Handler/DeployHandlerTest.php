@@ -67,8 +67,7 @@ class DeployHandlerTest extends LaravelTest
             'migration_workflow',
             'migration_workflow_detail',
             [
-                'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data2',
-                'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data1',
+                'tests',
             ],
             $versions
         );

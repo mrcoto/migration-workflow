@@ -4,7 +4,7 @@ namespace MrCoto\MigrationWorkflow\Core\ValueObject;
 
 use MrCoto\MigrationWorkflow\Core\Exceptions\MigrationWorkflowEmptyFilesException;
 use MrCoto\MigrationWorkflow\Core\Exceptions\MigrationWorkflowTypeExpectedException;
-use MrCoto\MigrationWorkflow\Core\MigrationWorkflowToken;
+use MrCoto\MigrationWorkflow\Core\MigrationWorkflowConstant;
 
 class MigrationWorkflowStep
 {
@@ -17,7 +17,7 @@ class MigrationWorkflowStep
 
     public function __construct(string $type, array $files)
     {
-        if (!in_array($type, MigrationWorkflowToken::TYPES)) {
+        if (!in_array($type, MigrationWorkflowConstant::TYPES)) {
             throw new MigrationWorkflowTypeExpectedException($type);
         }
 
@@ -46,7 +46,7 @@ class MigrationWorkflowStep
      */
     public function isMigrationStep() : bool
     {
-        return $this->type == MigrationWorkflowToken::MIGRATION;
+        return $this->type == MigrationWorkflowConstant::MIGRATION;
     }
 
     /**
@@ -56,7 +56,7 @@ class MigrationWorkflowStep
      */
     public function isSeedStep() : bool
     {
-        return $this->type == MigrationWorkflowToken::SEED;
+        return $this->type == MigrationWorkflowConstant::SEED;
     }
 
     /**

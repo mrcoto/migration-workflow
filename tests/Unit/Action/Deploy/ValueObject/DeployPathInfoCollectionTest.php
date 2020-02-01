@@ -12,8 +12,7 @@ class DeployPathInfoCollectionTest extends TestCase
     {
         $collection = new DeployPathInfoCollection(
             [
-                'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data2',
-                'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data1',
+                'tests',
             ],
             ['dev']
         );

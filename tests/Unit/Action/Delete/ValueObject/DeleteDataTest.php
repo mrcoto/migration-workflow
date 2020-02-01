@@ -74,7 +74,7 @@ class DeleteDataTest extends TestCase
         $deleteData = new DeleteData(
             'table_name',
             'detail_table_name',
-            ['MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data2', 'MrCoto\MigrationWorkflow\Test\Stub\Deploy\Data1', 2, true],
+            ['tests', 2, true],
             'SeedDummyWorkflow',
             'dev'
         );

@@ -51,7 +51,7 @@ class DeleteMigrationWorkflowCommandTest extends LaravelTest
     public function set_workflow_paths()
     {
         $this->app['config']->set('migration_workflow.workflows', [
-            'App\MigrationWorkflows',
+            'app',
         ]);
     }
 
