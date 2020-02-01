@@ -2,6 +2,8 @@
 
 namespace MrCoto\MigrationWorkflow\Core\ValueObject;
 
+use MrCoto\MigrationWorkflow\Core\Exceptions\MigrationWorkflowBadClassNameException;
+use MrCoto\MigrationWorkflow\Core\MigrationWorkflowConstant;
 use MrCoto\MigrationWorkflow\Core\MigrationWorkflowContract;
 use ReflectionClass;
 
@@ -27,29 +29,34 @@ class PathInfo
 
     private $workflow;
 
-    private const DEFAULT_VERSION = 'v1';
-
-    private const MINIMAL_LENGTH = 5;
-
     public function __construct(
         MigrationWorkflowContract $workflow
     )
     {
         $reflection = new ReflectionClass($workflow);
         $className = $reflection->getShortName();
-        $tokens = explode('_', $className);
-        if (count($tokens) > self::MINIMAL_LENGTH) {
-            $tokens = array_splice($tokens, count($tokens) - self::MINIMAL_LENGTH);
-            $this->version = $tokens[0];
-            $datePart = implode('-', array_splice($tokens, 1, 3));
-            $timePart = implode(':', str_split($tokens[count($tokens) - 1], 2));
-            $this->date = date("$datePart $timePart");
-        } else {
-            $this->version = self::DEFAULT_VERSION;
-            $this->date = date('Y-m-d 00:00:00');
+        if (!preg_match(MigrationWorkflowConstant::MIGRATION_WORKFLOW_CLASS_REGEX, $className)) {
+            throw new MigrationWorkflowBadClassNameException($className);
         }
-        $this->timestamp = strtotime($this->date);
+        $this->retrieveInfoFromClassName($className);
         $this->workflow = $workflow;
+    }
+
+    /**
+     * Get workflow information via class name
+     *
+     * @param string $className
+     * @return void
+     */
+    private function retrieveInfoFromClassName(string $className)
+    {
+        // $tokens = ['MigrationWorkflow', 'develop', '2020', '02', '01', '171520'];
+        $tokens = explode('_', $className);
+        $this->version = $tokens[1];
+        $datePart = implode('-', array_slice($tokens, 2, 3));
+        $timePart = date('H:i:s', strtotime(end($tokens)));
+        $this->date = date("$datePart $timePart");
+        $this->timestamp = strtotime($this->date);
     }
 
     /**
