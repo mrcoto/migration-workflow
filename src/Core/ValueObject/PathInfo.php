@@ -1,11 +1,19 @@
 <?php 
 
-namespace MrCoto\MigrationWorkflow\Action\Delete\ValueObject;
+namespace MrCoto\MigrationWorkflow\Core\ValueObject;
 
 use MrCoto\MigrationWorkflow\Core\MigrationWorkflowContract;
 use ReflectionClass;
 
-class DeletePathInfo
+/**
+ * Separate a MigrationWorkflow filename into variables,
+ * For example:
+ * MigrationWorkflow_develop_2020_01_20_160420
+ * into
+ * $version => develop
+ * $date => '2020-01-20 16:04:20'
+ */
+class PathInfo
 {
 
     /** @var string $version */

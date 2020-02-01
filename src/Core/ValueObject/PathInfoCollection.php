@@ -1,16 +1,15 @@
 <?php 
 
-namespace MrCoto\MigrationWorkflow\Action\Delete\ValueObject;
+namespace MrCoto\MigrationWorkflow\Core\ValueObject;
 
-use HaydenPierce\ClassFinder\ClassFinder;
-use MrCoto\MigrationWorkflow\Core\MigrationWorkflowConstant;
 use MrCoto\MigrationWorkflow\Core\MigrationWorkflowContract;
+use MrCoto\MigrationWorkflow\Core\MigrationWorkflowConstant;
 use ReflectionClass;
 
-class DeletePathInfoCollection
+class PathInfoCollection
 {
 
-    /** @var DeletePathInfo[] $items */
+    /** @var PathInfo[] $items */
     private $items;
 
     public function __construct(array $workflowPaths, array $versions = [])
@@ -18,8 +17,8 @@ class DeletePathInfoCollection
         $workflows = $this->getWorkflowContractsData($workflowPaths);
         $workflows = $this->applyVersionFilter($workflows, $versions);
         $workflows = $this->applySortAscending($workflows);
-        $this->items = array_map(function(DeletePathInfo $workflowData) {
-            return new DeletePathInfo(
+        $this->items = array_map(function(PathInfo $workflowData) {
+            return new PathInfo(
                 $workflowData->workflow()
             );
         }, $workflows);
@@ -43,7 +42,7 @@ class DeletePathInfoCollection
         foreach ($iter->type(MigrationWorkflowContract::class) as $workflowType) {
             $reflection = new ReflectionClass($workflowType->getName());
             $workflow = $reflection->newInstance();
-            $workflowsData[] = new DeletePathInfo($workflow);
+            $workflowsData[] = new PathInfo($workflow);
         }
         return $workflowsData;
     }
@@ -60,7 +59,7 @@ class DeletePathInfoCollection
         if (empty($versions)) {
             return $workflows;
         }
-        return array_filter($workflows, function(DeletePathInfo $workflow) use ($versions) {
+        return array_filter($workflows, function(PathInfo $workflow) use ($versions) {
             return in_array($workflow->version(), $versions);
         });
     }
@@ -73,7 +72,7 @@ class DeletePathInfoCollection
      */
     private function applySortAscending(array $workflows) : array
     {
-        usort($workflows, function(DeletePathInfo $left, DeletePathInfo $right) {
+        usort($workflows, function(PathInfo $left, PathInfo $right) {
             if ($left->timestamp() == $right->timestamp()) {
                 return 0;
             }
@@ -85,7 +84,7 @@ class DeletePathInfoCollection
     /**
      * Get migration workflow data rows
      *
-     * @return DeletePathInfo[]
+     * @return PathInfo[]
      */
     public function items() : array
     {

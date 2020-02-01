@@ -4,9 +4,9 @@ namespace MrCoto\MigrationWorkflow\Action\Deploy\Handler;
 
 use MrCoto\MigrationWorkflow\Action\Deploy\Contract\DeployRepositoryContract;
 use MrCoto\MigrationWorkflow\Action\Deploy\ValueObject\DeployData;
-use MrCoto\MigrationWorkflow\Action\Deploy\ValueObject\DeployPathInfo;
-use MrCoto\MigrationWorkflow\Action\Deploy\ValueObject\DeployPathInfoCollection;
 use MrCoto\MigrationWorkflow\Action\Migrate\Handler\MigrateHandler;
+use MrCoto\MigrationWorkflow\Core\ValueObject\PathInfo;
+use MrCoto\MigrationWorkflow\Core\ValueObject\PathInfoCollection;
 use MrCoto\MigrationWorkflow\Logger\LoggerFactory;
 
 class DeployHandler
@@ -41,7 +41,7 @@ class DeployHandler
         $detailTableName = $this->deployData->detailTableName();
         $this->DeployRepository->createTableIfNotExists($tableName);
         $this->DeployRepository->createDetailTableIfNotExists($tableName, $detailTableName);
-        $workflowCollection = new DeployPathInfoCollection(
+        $workflowCollection = new PathInfoCollection(
             $this->deployData->workflowPaths(),
             $this->deployData->versions()
         );
@@ -55,10 +55,10 @@ class DeployHandler
      *
      * @param string $tableName
      * @param string $detailTableName
-     * @param DeployPathInfo $workflowData
+     * @param PathInfo $workflowData
      * @return void
      */
-    private function handleWorkflowData(string $tableName, string $detailTableName, DeployPathInfo $workflowData)
+    private function handleWorkflowData(string $tableName, string $detailTableName, PathInfo $workflowData)
     {
         $className = get_class($workflowData->workflow());
         if ($this->DeployRepository->exists($tableName, $workflowData)) {

@@ -2,7 +2,7 @@
 
 namespace MrCoto\MigrationWorkflow\Action\Deploy\Contract;
 
-use MrCoto\MigrationWorkflow\Action\Deploy\ValueObject\DeployPathInfo;
+use MrCoto\MigrationWorkflow\Core\ValueObject\PathInfo;
 
 interface DeployRepositoryContract
 {
@@ -29,19 +29,19 @@ interface DeployRepositoryContract
      * Return true if migration workflow is present in database
      *
      * @param string $tableName
-     * @param DeployPathInfo $workflowData
+     * @param PathInfo $workflowData
      * @return bool
      */
-    public function exists(string $tableName, DeployPathInfo $workflowData) : bool;
+    public function exists(string $tableName, PathInfo $workflowData) : bool;
 
     /**
      * Save a specific migration workflow contract
      *
      * @param string $tableName
      * @param string $detailTableName
-     * @param DeployPathInfo $workflowData
+     * @param PathInfo $workflowData
      * @return void
      */
-    public function save(string $tableName, string $detailTableName, DeployPathInfo $workflowData);
+    public function save(string $tableName, string $detailTableName, PathInfo $workflowData);
 
 }

@@ -4,7 +4,7 @@ namespace MrCoto\MigrationWorkflow\Action\Delete\Handler;
 
 use Illuminate\Support\Facades\DB;
 use MrCoto\MigrationWorkflow\Action\Delete\Contract\DeleteRepositoryContract;
-use MrCoto\MigrationWorkflow\Action\Delete\ValueObject\DeletePathInfo;
+use MrCoto\MigrationWorkflow\Core\ValueObject\PathInfo;
 
 class DeleteRepository implements DeleteRepositoryContract
 {
@@ -14,10 +14,10 @@ class DeleteRepository implements DeleteRepositoryContract
      *
      * @param string $tableName
      * @param string $detailTableName
-     * @param DeletePathInfo $workflowData
+     * @param PathInfo $workflowData
      * @return void
      */
-    public function delete(string $tableName, string $detailTableName, DeletePathInfo $workflowData)
+    public function delete(string $tableName, string $detailTableName, PathInfo $workflowData)
     {
         $workflow = $workflowData->workflow();
         $workflowClass = get_class($workflow);

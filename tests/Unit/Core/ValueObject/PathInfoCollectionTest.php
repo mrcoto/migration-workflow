@@ -2,15 +2,15 @@
 
 namespace MrCoto\MigrationWorkflow\Test\Unit\Action\Deploy\ValueObject;
 
+use MrCoto\MigrationWorkflow\Core\ValueObject\PathInfoCollection;
 use PHPUnit\Framework\TestCase;
-use MrCoto\MigrationWorkflow\Action\Deploy\ValueObject\DeployPathInfoCollection;
 
-class DeployPathInfoCollectionTest extends TestCase
+class PathInfoCollectionTest extends TestCase
 {
 
     public function test_should_collect_dev_workflows()
     {
-        $collection = new DeployPathInfoCollection(
+        $collection = new PathInfoCollection(
             [
                 'tests',
             ],

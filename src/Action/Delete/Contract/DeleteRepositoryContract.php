@@ -2,7 +2,7 @@
 
 namespace MrCoto\MigrationWorkflow\Action\Delete\Contract;
 
-use MrCoto\MigrationWorkflow\Action\Delete\ValueObject\DeletePathInfo;
+use MrCoto\MigrationWorkflow\Core\ValueObject\PathInfo;
 
 interface DeleteRepositoryContract
 {
@@ -12,9 +12,9 @@ interface DeleteRepositoryContract
      *
      * @param string $tableName
      * @param string $detailTableName
-     * @param DeletePathInfo $workflowData
+     * @param PathInfo $workflowData
      * @return void
      */
-    public function delete(string $tableName, string $detailTableName, DeletePathInfo $workflowData);
+    public function delete(string $tableName, string $detailTableName, PathInfo $workflowData);
 
 }

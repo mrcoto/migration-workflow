@@ -2,6 +2,8 @@
 
 namespace MrCoto\MigrationWorkflow\Action\Delete\ValueObject;
 
+use MrCoto\MigrationWorkflow\Core\ValueObject\PathInfo;
+use MrCoto\MigrationWorkflow\Core\ValueObject\PathInfoCollection;
 use ReflectionClass;
 
 class DeleteData
@@ -16,7 +18,7 @@ class DeleteData
     /** @var array $workflowPaths */
     private $workflowPaths;
 
-    /** @var DeletePathInfo $workflowDataToRemove */
+    /** @var PathInfo $workflowDataToRemove */
     private $workflowDataToRemove;
 
     public function __construct(
@@ -57,9 +59,9 @@ class DeleteData
      */
     private function setWorkflowDataToRemove(string $workflowNameToRemove, string $versionToRemove)
     {
-        $workflowsCollection = new DeletePathInfoCollection($this->workflowPaths, [$versionToRemove]);
+        $workflowsCollection = new PathInfoCollection($this->workflowPaths, [$versionToRemove]);
         $workflowsData = $workflowsCollection->items();
-        $filteredWorkflows = array_filter($workflowsData, function(DeletePathInfo $workflowData) use ($workflowNameToRemove) {
+        $filteredWorkflows = array_filter($workflowsData, function(PathInfo $workflowData) use ($workflowNameToRemove) {
             $reflection = new ReflectionClass($workflowData->workflow());
             return mb_strpos($reflection->getShortName(), $workflowNameToRemove) !== false;
         });
@@ -122,9 +124,9 @@ class DeleteData
     /**
      * Get migration workflow data
      *
-     * @return DeletePathInfo
+     * @return PathInfo
      */
-    public function workflowData() : DeletePathInfo
+    public function workflowData() : PathInfo
     {
         return $this->workflowDataToRemove;
     }

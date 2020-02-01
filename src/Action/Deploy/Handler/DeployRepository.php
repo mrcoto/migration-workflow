@@ -6,7 +6,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use MrCoto\MigrationWorkflow\Action\Deploy\Contract\DeployRepositoryContract;
-use MrCoto\MigrationWorkflow\Action\Deploy\ValueObject\DeployPathInfo;
+use MrCoto\MigrationWorkflow\Core\ValueObject\PathInfo;
 
 class DeployRepository implements DeployRepositoryContract
 {
@@ -58,10 +58,10 @@ class DeployRepository implements DeployRepositoryContract
      * Return true if migration workflow is present in database
      *
      * @param string $tableName
-     * @param DeployPathInfo $workflowData
+     * @param PathInfo $workflowData
      * @return bool
      */
-    public function exists(string $tableName, DeployPathInfo $workflowData) : bool
+    public function exists(string $tableName, PathInfo $workflowData) : bool
     {
         return DB::table($tableName)
                  ->where('workflow_class', get_class($workflowData->workflow()))
@@ -73,10 +73,10 @@ class DeployRepository implements DeployRepositoryContract
      *
      * @param string $tableName
      * @param string $detailTableName
-     * @param DeployPathInfo $workflowData
+     * @param PathInfo $workflowData
      * @return void
      */
-    public function save(string $tableName, string $detailTableName, DeployPathInfo $workflowData)
+    public function save(string $tableName, string $detailTableName, PathInfo $workflowData)
     {
         DB::table($tableName)->insert(array(
             'workflow_class' => get_class($workflowData->workflow()),
