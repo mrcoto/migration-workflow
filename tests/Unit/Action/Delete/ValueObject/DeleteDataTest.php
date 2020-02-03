@@ -2,6 +2,7 @@
 
 namespace MrCoto\MigrationWorkflow\Test\Unit\Action\Delete\ValueObject;
 
+use MrCoto\MigrationWorkflow\Action\Delete\Exceptions\MigrationWorkflowNotFoundException;
 use MrCoto\MigrationWorkflow\Action\Delete\ValueObject\DeleteData;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
@@ -66,6 +67,30 @@ class DeleteDataTest extends TestCase
             [2, true],
             'SeedDummyWorkflow',
             ''
+        );
+    }
+
+    public function test_should_throw_exception_if_workflow_is_not_found_with_no_name_match()
+    {
+        $this->expectException(MigrationWorkflowNotFoundException::class);
+        new DeleteData(
+            'table_name',
+            'detail_table_name',
+            ['tests', 2, true],
+            'DoesntExists',
+            'dev'
+        );
+    }
+
+    public function test_should_throw_exception_if_workflow_is_not_found_with_no_version_match()
+    {
+        $this->expectException(MigrationWorkflowNotFoundException::class);
+        new DeleteData(
+            'table_name',
+            'detail_table_name',
+            ['tests', 2, true],
+            'SeedDummyWorkflow',
+            'dev_not_exists'
         );
     }
 

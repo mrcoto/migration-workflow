@@ -3,6 +3,7 @@
 namespace MrCoto\MigrationWorkflow\Action\Delete\Commands;
 
 use Illuminate\Console\Command;
+use MrCoto\MigrationWorkflow\Action\Delete\Exceptions\MigrationWorkflowNotFoundException;
 use MrCoto\MigrationWorkflow\Action\Delete\Handler\DeleteHandler;
 use MrCoto\MigrationWorkflow\Action\Delete\Handler\DeleteRepository;
 use MrCoto\MigrationWorkflow\Action\Delete\ValueObject\DeleteData;
@@ -50,14 +51,19 @@ class DeleteMigrationWorkflowCommand extends Command
         $className = $this->argument('className');
         $version = $this->argument('version');
 
-        $deleteData = new DeleteData(
-            config('migration_workflow.table_name'),
-            config('migration_workflow.table_name_detail'),
-            config('migration_workflow.workflows'),
-            $className,
-            $version
-        );
-        $this->deleteMigrationWorkflow($deleteData);
+        try {
+            $deleteData = new DeleteData(
+                config('migration_workflow.table_name'),
+                config('migration_workflow.table_name_detail'),
+                config('migration_workflow.workflows'),
+                $className,
+                $version
+            );
+            $this->deleteMigrationWorkflow($deleteData);
+        } catch (MigrationWorkflowNotFoundException $e) {
+            $this->logger->error($e->getMessage());  
+        }
+        
     }
 
     /**
@@ -71,7 +77,6 @@ class DeleteMigrationWorkflowCommand extends Command
         $fullClassName = $this->getFullClasName($deleteData);
 
         $deleteHandler = $this->getDeleteHandler($deleteData);
-        
         $deleteHandler->deleteFromDatabase();
         $this->logger->info("Migration Workflow $fullClassName removed from database");
         

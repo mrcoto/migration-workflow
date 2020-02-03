@@ -2,6 +2,7 @@
 
 namespace MrCoto\MigrationWorkflow\Action\Delete\ValueObject;
 
+use MrCoto\MigrationWorkflow\Action\Delete\Exceptions\MigrationWorkflowNotFoundException;
 use MrCoto\MigrationWorkflow\Core\ValueObject\PathInfo;
 use MrCoto\MigrationWorkflow\Core\ValueObject\PathInfoCollection;
 use ReflectionClass;
@@ -61,11 +62,26 @@ class DeleteData
     {
         $workflowsCollection = new PathInfoCollection($this->workflowPaths, [$versionToRemove]);
         $workflowsData = $workflowsCollection->items();
-        $filteredWorkflows = array_filter($workflowsData, function(PathInfo $workflowData) use ($workflowNameToRemove) {
+        $filteredWorkflows = $this->getMatchedWorkflows($workflowsData, $workflowNameToRemove);
+        if (empty($filteredWorkflows)){
+            throw new MigrationWorkflowNotFoundException($workflowNameToRemove, $versionToRemove);
+        }
+        $this->workflowDataToRemove = end($filteredWorkflows);
+    }
+
+    /**
+     * Get all matched workflows, that match the name
+     *
+     * @param PathInfo[] $workflowsData
+     * @param string $workflowNameToRemove
+     * @return array
+     */
+    private function getMatchedWorkflows(array $workflowsData, string $workflowNameToRemove) : array
+    {
+        return array_filter($workflowsData, function(PathInfo $workflowData) use ($workflowNameToRemove) {
             $reflection = new ReflectionClass($workflowData->workflow());
             return mb_strpos($reflection->getShortName(), $workflowNameToRemove) !== false;
         });
-        $this->workflowDataToRemove = end($filteredWorkflows);
     }
 
     /**
