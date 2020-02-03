@@ -43,7 +43,7 @@ class ModuleMakeMigrationWorkflowCommandTest extends LaravelTest
         Artisan::call('module:make-workflow', ['module' => 'General', 'className' => 'MyMigrationClass', 'versions' => 'dev,prod', '--date' => true]);
         
         $date = date('Y_m_d_His');
-        $today = date('Y/m/d');
+        $today = $this->get_today_date_folder();
         $this->assertTrue(file_exists("Modules/General/MigrationWorkflows/$today/MyMigrationClass_dev_$date.php"));
         $this->assertTrue(file_exists("Modules/General/MigrationWorkflows/$today/MyMigrationClass_prod_$date.php"));
         (new FileHandler)->delete('Modules');
@@ -54,10 +54,15 @@ class ModuleMakeMigrationWorkflowCommandTest extends LaravelTest
         Artisan::call('module:make-workflow', ['module' => 'General', 'className' => 'MyMigrationClass', 'versions' => 'dev,prod', '--owndir' => true, '--date' => true]);
         
         $date = date('Y_m_d_His');
-        $today = date('Y/m/d');
+        $today = $this->get_today_date_folder();
         $this->assertTrue(file_exists("Modules/General/MigrationWorkflows/Dev/$today/MyMigrationClass_dev_$date.php"));
         $this->assertTrue(file_exists("Modules/General/MigrationWorkflows/Prod/$today/MyMigrationClass_prod_$date.php"));
         (new FileHandler)->delete('Modules');
+    }
+
+    private function get_today_date_folder() : string
+    {
+        return 'Y'.date('Y').'/M'.date('m').'/D'.date('d');
     }
 
 }

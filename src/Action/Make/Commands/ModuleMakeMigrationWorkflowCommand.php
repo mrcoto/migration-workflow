@@ -91,7 +91,7 @@ class ModuleMakeMigrationWorkflowCommand extends Command
     {
         return str_replace('$MODULE', $this->argument('module'), self::DEFAULT_NAMESPACE).
                ($this->option('owndir') ? '\\'.ucfirst($version) : '').
-               ($this->option('date') ? '\\'.str_replace('-', '\\', date('Y-m-d')) : '');
+               ($this->option('date') ? '\\Y'.date('Y').'\\M'.date('m').'\\D'.date('d') : '');
     }
 
     /**
