@@ -49,7 +49,8 @@ class DeleteHandler
         $workflow = $workflowData->workflow();
         $reflection = new ReflectionClass($workflow);
         $pathToRemove = dirname($reflection->getFileName()).'/'.$reflection->getShortName().'.php';
-        unlink($pathToRemove);
+        if (file_exists($pathToRemove))
+            unlink($pathToRemove);
     }
 
     /**
