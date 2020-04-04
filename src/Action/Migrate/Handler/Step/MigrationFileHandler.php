@@ -9,13 +9,15 @@ use MrCoto\MigrationWorkflow\Core\ValueObject\MigrationWorkflowStep;
 
 class MigrationFileHandler
 {
-    
+
     /**
      * Handle migration step with eloquent
      *
      * @param integer $stepNumber
      * @param MigrationWorkflowStep $step
      * @return void
+     * @throws ClassFileIsNotMigrationException
+     * @throws MigrationFileNotFoundException
      */
     public function handle(int $stepNumber, MigrationWorkflowStep $step)
     {
@@ -35,6 +37,7 @@ class MigrationFileHandler
      * @param string $filePath
      * @param string $file
      * @return void
+     * @throws ClassFileIsNotMigrationException
      */
     private function runMigrationFile(string $filePath, string $file)
     {
@@ -102,10 +105,9 @@ class MigrationFileHandler
         $migration = end($exploded);
         $tokens = explode('_', $migration);
         $acceptedTokens = $this->getAcceptedTokensDefinedInClass($tokens);
-        $migrationClass = array_reduce($acceptedTokens, function(string $carry, string $item) {
+        return array_reduce($acceptedTokens, function(string $carry, string $item) {
             return $carry.ucfirst($item);
         }, '');
-        return $migrationClass;
     }
 
     /**

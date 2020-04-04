@@ -45,8 +45,6 @@ class MakeMigrationWorkflowCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle()
     {
@@ -79,12 +77,13 @@ class MakeMigrationWorkflowCommand extends Command
 
     /**
      * Get Base Namespace:
-     * 
+     *
      * Default => App\MigrationWorkflows
      * If --owndir passed => App\MigrationWorkflows\Version
      * If --date passed => App\MigrationWorkflows\YYYY\MM\DD
      * IF --owndir and --date passed => App\MigrationWorkflows\Version\YYYY\MM\DD
      *
+     * @param string $version
      * @return string
      */
     private function getBaseNamespace(string $version) : string

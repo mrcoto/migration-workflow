@@ -5,6 +5,7 @@ namespace MrCoto\MigrationWorkflow\Action\Delete\Handler;
 use MrCoto\MigrationWorkflow\Action\Delete\Contract\DeleteRepositoryContract;
 use MrCoto\MigrationWorkflow\Action\Delete\ValueObject\DeleteData;
 use ReflectionClass;
+use ReflectionException;
 
 class DeleteHandler
 {
@@ -42,6 +43,7 @@ class DeleteHandler
      * Remove created file
      *
      * @return void
+     * @throws ReflectionException
      */
     public function removeFile()
     {

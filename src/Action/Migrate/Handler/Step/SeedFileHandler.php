@@ -6,16 +6,19 @@ use Illuminate\Database\Seeder;
 use MrCoto\MigrationWorkflow\Action\Migrate\Exceptions\ClassFileIsNotSeederException;
 use MrCoto\MigrationWorkflow\Core\ValueObject\MigrationWorkflowStep;
 use ReflectionClass;
+use ReflectionException;
 
 class SeedFileHandler extends Seeder
 {
-    
+
     /**
      * Handle seed step with eloquent
      *
      * @param integer $stepNumber
      * @param MigrationWorkflowStep $step
      * @return void
+     * @throws ClassFileIsNotSeederException
+     * @throws ReflectionException
      */
     public function handle(int $stepNumber, MigrationWorkflowStep $step)
     {
@@ -35,6 +38,7 @@ class SeedFileHandler extends Seeder
      *
      * @param string $seedClass
      * @return void
+     * @throws ClassFileIsNotSeederException
      */
     private function runSeederClass(string $seedClass)
     {

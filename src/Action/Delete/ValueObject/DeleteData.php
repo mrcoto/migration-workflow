@@ -2,6 +2,7 @@
 
 namespace MrCoto\MigrationWorkflow\Action\Delete\ValueObject;
 
+use InvalidArgumentException;
 use MrCoto\MigrationWorkflow\Action\Delete\Exceptions\MigrationWorkflowNotFoundException;
 use MrCoto\MigrationWorkflow\Core\ValueObject\PathInfo;
 use MrCoto\MigrationWorkflow\Core\ValueObject\PathInfoCollection;
@@ -22,6 +23,15 @@ class DeleteData
     /** @var PathInfo $workflowDataToRemove */
     private $workflowDataToRemove;
 
+    /**
+     * DeleteData constructor.
+     * @param string $tableName
+     * @param string $detailTableName
+     * @param array $workflowPaths
+     * @param string $workflowNameToRemove
+     * @param string $versionToRemove
+     * @throws MigrationWorkflowNotFoundException
+     */
     public function __construct(
         string $tableName,
         string $detailTableName,
@@ -32,21 +42,21 @@ class DeleteData
     {
         $this->tableName = $tableName;
         if (empty($this->tableName)) {
-            throw new \InvalidArgumentException("tableName can't be an empty string");
+            throw new InvalidArgumentException("tableName can't be an empty string");
         }
         $this->detailTableName = $detailTableName;
         if (empty($this->detailTableName)) {
-            throw new \InvalidArgumentException("detailTableName can't be an empty string");
+            throw new InvalidArgumentException("detailTableName can't be an empty string");
         }
         $this->workflowPaths = $this->uniqueAndNotEmptyStringArray($workflowPaths);
         if (empty($this->workflowPaths)) {
-            throw new \InvalidArgumentException("workflowsPath can't be an empty array");
+            throw new InvalidArgumentException("workflowsPath can't be an empty array");
         }
         if (empty($workflowNameToRemove)) {
-            throw new \InvalidArgumentException("Workflow name cannot be empty");
+            throw new InvalidArgumentException("Workflow name cannot be empty");
         }
         if (empty($versionToRemove)) {
-            throw new \InvalidArgumentException("Workflow name cannot be empty");
+            throw new InvalidArgumentException("Workflow name cannot be empty");
         }
         $this->setWorkflowDataToRemove($workflowNameToRemove, $versionToRemove);
     }
@@ -57,6 +67,7 @@ class DeleteData
      * @param string $workflowNameToRemove
      * @param string $versionToRemove
      * @return void
+     * @throws MigrationWorkflowNotFoundException
      */
     private function setWorkflowDataToRemove(string $workflowNameToRemove, string $versionToRemove)
     {
@@ -125,16 +136,6 @@ class DeleteData
     public function workflowPaths() : array
     {
         return $this->workflowPaths;
-    }
-
-    /**
-     * Get migration deploy versions to run
-     *
-     * @return array
-     */
-    public function versions() : array
-    {
-        return $this->versions;
     }
 
     /**

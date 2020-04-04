@@ -2,9 +2,13 @@
 
 namespace MrCoto\MigrationWorkflow\Core\ValueObject;
 
+use hanneskod\classtools\Iterator\ClassIterator;
+use MrCoto\MigrationWorkflow\Core\Exceptions\MigrationWorkflowBadClassNameException;
 use MrCoto\MigrationWorkflow\Core\MigrationWorkflowContract;
 use MrCoto\MigrationWorkflow\Core\MigrationWorkflowConstant;
 use ReflectionClass;
+use ReflectionException;
+use Symfony\Component\Finder\Finder;
 
 class PathInfoCollection
 {
@@ -12,6 +16,13 @@ class PathInfoCollection
     /** @var PathInfo[] $items */
     private $items;
 
+    /**
+     * PathInfoCollection constructor.
+     * @param array $workflowPaths
+     * @param array $versions
+     * @throws MigrationWorkflowBadClassNameException
+     * @throws ReflectionException
+     */
     public function __construct(array $workflowPaths, array $versions = [])
     {
         $workflows = $this->getWorkflowContractsData($workflowPaths);
@@ -29,11 +40,13 @@ class PathInfoCollection
      *
      * @param array $workflowPaths
      * @return MigrationWorkflowContract[]
+     * @throws MigrationWorkflowBadClassNameException
+     * @throws ReflectionException
      */
     private function getWorkflowContractsData(array $workflowPaths) : array
     {
-        $finder = new \Symfony\Component\Finder\Finder();
-        $iter = new \hanneskod\classtools\Iterator\ClassIterator(
+        $finder = new Finder();
+        $iter = new ClassIterator(
             $finder->files()
                 ->name(MigrationWorkflowConstant::MIGRATION_WORKFLOW_FILE_REGEX)
                 ->in($workflowPaths)
@@ -41,6 +54,7 @@ class PathInfoCollection
         $workflowsData = [];
         foreach ($iter->type(MigrationWorkflowContract::class) as $workflowType) {
             $reflection = new ReflectionClass($workflowType->getName());
+            /** @var MigrationWorkflowContract $workflow */
             $workflow = $reflection->newInstance();
             $workflowsData[] = new PathInfo($workflow);
         }
@@ -50,9 +64,9 @@ class PathInfoCollection
     /**
      * Filters workflows by version
      *
-     * @param MigrationWorkflowData[]  $versions
+     * @param array $workflows
      * @param array $versions
-     * @return MigrationWorkflowData[] 
+     * @return array
      */
     private function applyVersionFilter(array $workflows, array $versions = []) : array
     {
@@ -68,7 +82,7 @@ class PathInfoCollection
      * Apply sort to workflow data
      *
      * @param array $workflows
-     * @return MigrationWorkflowData[] 
+     * @return array
      */
     private function applySortAscending(array $workflows) : array
     {

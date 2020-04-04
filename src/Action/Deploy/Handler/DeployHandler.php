@@ -2,6 +2,7 @@
 
 namespace MrCoto\MigrationWorkflow\Action\Deploy\Handler;
 
+use Exception;
 use MrCoto\MigrationWorkflow\Action\Deploy\Contract\DeployRepositoryContract;
 use MrCoto\MigrationWorkflow\Action\Deploy\ValueObject\DeployData;
 use MrCoto\MigrationWorkflow\Action\Migrate\Handler\MigrateHandler;
@@ -18,6 +19,12 @@ class DeployHandler
 
     private $logger;
 
+    /**
+     * DeployHandler constructor.
+     * @param DeployData $deployData
+     * @param DeployRepositoryContract $DeployRepository
+     * @param MigrateHandler $migrateHandler
+     */
     public function __construct(
         DeployData $deployData,
         DeployRepositoryContract $DeployRepository,
@@ -34,6 +41,7 @@ class DeployHandler
      * Deploy workflows
      *
      * @return void
+     * @throws Exception
      */
     public function deploy()
     {
@@ -57,6 +65,7 @@ class DeployHandler
      * @param string $detailTableName
      * @param PathInfo $workflowData
      * @return void
+     * @throws Exception
      */
     private function handleWorkflowData(string $tableName, string $detailTableName, PathInfo $workflowData)
     {

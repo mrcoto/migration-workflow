@@ -10,6 +10,7 @@ use MrCoto\MigrationWorkflow\Action\Delete\ValueObject\DeleteData;
 use MrCoto\MigrationWorkflow\Logger\Handler\ConsoleMonologLogger;
 use MrCoto\MigrationWorkflow\Logger\ILogger;
 use MrCoto\MigrationWorkflow\Logger\LoggerFactory;
+use ReflectionException;
 
 class DeleteMigrationWorkflowCommand extends Command
 {
@@ -25,7 +26,7 @@ class DeleteMigrationWorkflowCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Delete workflow database record and. If --file is passed, then remove it from file system';
+    protected $description = "Deletes a workflow database record and. If --file is passed, then remove it from file system";
 
     /** @var ILogger $logger */
     private $logger;
@@ -44,7 +45,7 @@ class DeleteMigrationWorkflowCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @throws ReflectionException
      */
     public function handle()
     {
@@ -63,14 +64,14 @@ class DeleteMigrationWorkflowCommand extends Command
         } catch (MigrationWorkflowNotFoundException $e) {
             $this->logger->error($e->getMessage());  
         }
-        
     }
 
     /**
      * Delete Migration Workflow from database and/or file system
      *
-     * @param string $fullClassName
+     * @param DeleteData $deleteData
      * @return void
+     * @throws ReflectionException
      */
     private function deleteMigrationWorkflow(DeleteData $deleteData)
     {

@@ -2,6 +2,8 @@
 
 namespace MrCoto\MigrationWorkflow\Action\Deploy\ValueObject;
 
+use InvalidArgumentException;
+
 class DeployData
 {
 
@@ -17,6 +19,14 @@ class DeployData
     /** @var array $versions */
     private $versions;
 
+    /**
+     * DeployData constructor.
+     * @param string $tableName
+     * @param string $detailTableName
+     * @param array $workflowPaths
+     * @param array $versions
+     * @throws InvalidArgumentException
+     */
     public function __construct(
         string $tableName,
         string $detailTableName,
@@ -25,18 +35,24 @@ class DeployData
     )
     {
         $this->tableName = $tableName;
-        if (empty($this->tableName)) {
-            throw new \InvalidArgumentException("tableName can't be an empty string");
-        }
+        $this->checkEmptyness($this->tableName, "tableName can't be an empty string");
         $this->detailTableName = $detailTableName;
-        if (empty($this->detailTableName)) {
-            throw new \InvalidArgumentException("detailTableName can't be an empty string");
-        }
+        $this->checkEmptyness($this->detailTableName, "detailTableName can't be an empty string");
         $this->workflowPaths = $this->uniqueAndNotEmptyStringArray($workflowPaths);
-        if (empty($this->workflowPaths)) {
-            throw new \InvalidArgumentException("workflowsPath can't be an empty array");
-        }
+        $this->checkEmptyness($this->workflowPaths, "workflowsPath can't be an empty array");
         $this->versions = $this->uniqueAndNotEmptyStringArray($versions);
+    }
+
+    /**
+     * Check if data is empty
+     * @param string|array $data Data to check
+     * @param string $message Message
+     * @throws InvalidArgumentException If data is empty
+     */
+    private function checkEmptyness($data, string $message)
+    {
+        if (empty($data))
+            throw new InvalidArgumentException($message);
     }
 
     /**

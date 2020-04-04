@@ -2,6 +2,8 @@
 
 namespace MrCoto\MigrationWorkflow\Action\Make\Handler;
 
+use InvalidArgumentException;
+
 class Stub
 {
 
@@ -32,10 +34,10 @@ class Stub
     )
     {
         if (empty($baseNamespace)) {
-            throw new \InvalidArgumentException("namespace can't be empty");
+            throw new InvalidArgumentException("namespace can't be empty");
         }
         if (empty($fullClassName)) {
-            throw new \InvalidArgumentException("class name can't be empty");
+            throw new InvalidArgumentException("class name can't be empty");
         }
         $this->namespace = $this->getFullNameSpace($baseNamespace, $fullClassName);
         $this->className = $this->getClass($fullClassName);
@@ -151,7 +153,7 @@ class Stub
     private function setStubDir(string $stubDir)
     {
         if (!file_exists($stubDir)) {
-            throw new \InvalidArgumentException("Stub file doesn't exists");
+            throw new InvalidArgumentException("Stub file doesn't exists");
         }
         $this->stubDir = $stubDir;
     }

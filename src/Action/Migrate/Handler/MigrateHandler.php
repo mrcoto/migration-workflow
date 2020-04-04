@@ -32,6 +32,7 @@ class MigrateHandler
      *
      * @param MigrationWorkflowContract $migrationWorkflow
      * @return void
+     * @throws Exception
      */
     public function handle(MigrationWorkflowContract $migrationWorkflow)
     {
@@ -76,6 +77,7 @@ class MigrateHandler
      * Get Particular step description
      *
      * @param string $action
+     * @param int $stepNumber
      * @param MigrationWorkflowStep $step
      * @return string
      */

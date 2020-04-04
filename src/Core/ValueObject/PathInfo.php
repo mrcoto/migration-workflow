@@ -6,6 +6,7 @@ use MrCoto\MigrationWorkflow\Core\Exceptions\MigrationWorkflowBadClassNameExcept
 use MrCoto\MigrationWorkflow\Core\MigrationWorkflowConstant;
 use MrCoto\MigrationWorkflow\Core\MigrationWorkflowContract;
 use ReflectionClass;
+use ReflectionException;
 
 /**
  * Separate a MigrationWorkflow filename into variables,
@@ -29,6 +30,12 @@ class PathInfo
 
     private $workflow;
 
+    /**
+     * PathInfo constructor.
+     * @param MigrationWorkflowContract $workflow
+     * @throws MigrationWorkflowBadClassNameException
+     * @throws ReflectionException
+     */
     public function __construct(
         MigrationWorkflowContract $workflow
     )

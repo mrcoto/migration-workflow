@@ -15,6 +15,13 @@ class MigrationWorkflowStep
     /** @var array $files */
     private $files;
 
+    /**
+     * MigrationWorkflowStep constructor.
+     * @param string $type
+     * @param array $files
+     * @throws MigrationWorkflowEmptyFilesException
+     * @throws MigrationWorkflowTypeExpectedException
+     */
     public function __construct(string $type, array $files)
     {
         if (!in_array($type, MigrationWorkflowConstant::TYPES)) {

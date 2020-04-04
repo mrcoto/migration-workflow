@@ -16,6 +16,8 @@ class MigrationWorkflow
      *
      * @param array $steps $steps
      * @return MigrationWorkflowCollection
+     * @throws Exceptions\MigrationWorkflowEmptyFilesException
+     * @throws Exceptions\MigrationWorkflowTypeExpectedException
      */
     public static function workflow(array $steps) : MigrationWorkflowCollection
     {
@@ -28,6 +30,8 @@ class MigrationWorkflow
      * @param string $type
      * @param array $files
      * @return MigrationWorkflowStep
+     * @throws Exceptions\MigrationWorkflowEmptyFilesException
+     * @throws Exceptions\MigrationWorkflowTypeExpectedException
      */
     public static function step(string $type, array $files) : MigrationWorkflowStep
     {

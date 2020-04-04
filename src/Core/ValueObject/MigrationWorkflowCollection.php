@@ -2,6 +2,9 @@
 
 namespace MrCoto\MigrationWorkflow\Core\ValueObject;
 
+use MrCoto\MigrationWorkflow\Core\Exceptions\MigrationWorkflowEmptyFilesException;
+use MrCoto\MigrationWorkflow\Core\Exceptions\MigrationWorkflowTypeExpectedException;
+
 class MigrationWorkflowCollection
 {
     /** @var MigrationWorkflowStep[] $steps */
@@ -11,6 +14,8 @@ class MigrationWorkflowCollection
      * Generate inmutable collection from migration workflow steps
      *
      * @param MigrationWorkflowStep[] $steps
+     * @throws MigrationWorkflowEmptyFilesException
+     * @throws MigrationWorkflowTypeExpectedException
      */
     public function __construct(array $steps)
     {
